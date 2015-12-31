@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<cc.fotoplace.gallery.widget.GridViewItemRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<io.valuesfeng.picker.widget.GridViewItemRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -28,4 +28,4 @@
         android:button="@drawable/pick_photo_checkbox"
         android:focusable="false" />
 
-</cc.fotoplace.gallery.widget.GridViewItemRelativeLayout>
+</io.valuesfeng.picker.widget.GridViewItemRelativeLayout>

@@ -13,9 +13,7 @@ import android.view.View;
 
 import java.util.List;
 
-import cc.fotoplace.gallery.ImageBuilder;
-import cc.fotoplace.gallery.ImageSelectActivity;
-import cc.fotoplace.gallery.MimeType;
+import io.valuesfeng.picker.ImageBuilder;
 
 
 public class MainActivity extends FragmentActivity {
