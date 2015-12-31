@@ -33,6 +33,10 @@ import io.valuesfeng.picker.model.SelectionSpec;
  * @version 1.0.0
  * @hide
  * @since 2014/03/27
+ *
+ * @Modification
+ *          add picture size charge
+ *              by valuesFeng
  */
 public class PictureLoader extends CursorLoader {
     private static final String[] PROJECTION = {MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME};
@@ -47,14 +51,11 @@ public class PictureLoader extends CursorLoader {
 
     public static CursorLoader newInstance(Context context, Album album, SelectionSpec selectionSpec) {
         if (album == null || album.isAll()) {
-            return new PictureLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION, IS_LARGE_SIZE, new String[]{selectionSpec.getMinPixels() + ""}, ORDER_BY, selectionSpec.ismEnableCamera());
+            return new PictureLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION,
+                    IS_LARGE_SIZE, new String[]{selectionSpec.getMinPixels() + ""}, ORDER_BY, selectionSpec.ismEnableCamera());
         }
-        return newInstance(context, album, selectionSpec, false);
-    }
-
-    public static CursorLoader newInstance(Context context, Album album, SelectionSpec selectionSpec, boolean capture) {
         return new PictureLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION,
-                MediaStore.Images.Media.BUCKET_ID + " = ? and (" + IS_LARGE_SIZE + ")", new String[]{album.getId(), selectionSpec.getMinPixels() + ""}, ORDER_BY, capture);
+                MediaStore.Images.Media.BUCKET_ID + " = ? and (" + IS_LARGE_SIZE + ")", new String[]{album.getId(), selectionSpec.getMinPixels() + ""}, ORDER_BY, selectionSpec.ismEnableCamera());
     }
 
     @Override

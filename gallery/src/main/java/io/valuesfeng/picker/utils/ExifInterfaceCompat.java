@@ -16,7 +16,6 @@ import java.util.TimeZone;
 
 public final class ExifInterfaceCompat {
     public static final String TAG = ExifInterfaceCompat.class.getSimpleName();
-    public static final int EXIF_DEGREE_FALLBACK_VALUE = -1;
 
     private ExifInterfaceCompat() {
     }
@@ -30,7 +29,7 @@ public final class ExifInterfaceCompat {
     }
 
     public static final Date getExifDateTime(String filepath) {
-        ExifInterface exif = null;
+        ExifInterface exif;
 
         try {
             exif = newInstance(filepath);

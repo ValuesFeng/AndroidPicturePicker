@@ -72,7 +72,7 @@ public class GridViewItemRelativeLayout extends RelativeLayout {
     }
 
     public GridViewItemRelativeLayout(Context context, AttributeSet attrs) {
-        this(context, null, 0);
+        this(context, attrs, 0);
     }
 
     public GridViewItemRelativeLayout(Context context, AttributeSet attrs, int defStyle) {

@@ -50,8 +50,6 @@ public class Picture implements Parcelable {
     public static final String ITEM_DISPLAY_NAME_CAPTURE = "Capture";
     private final long mId;
 
-    private boolean isSelected = false;
-
     /* package */ Picture(long id) {
         mId = id;
     }
@@ -93,9 +91,5 @@ public class Picture implements Parcelable {
 
     public boolean isCapture() {
         return mId == ITEM_ID_CAPTURE;
-    }
-
-    public boolean isSelected() {
-        return isSelected;
     }
 }

@@ -31,7 +31,6 @@ import io.valuesfeng.picker.model.SelectionSpec;
 
 /**
  */
-@SuppressWarnings("unused") // public APIs
 public final class Picker {
     private final WeakReference<Activity> mContext;
     private final WeakReference<Fragment> mFragment;

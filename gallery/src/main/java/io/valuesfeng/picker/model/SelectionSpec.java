@@ -44,10 +44,9 @@ public final class SelectionSpec implements Parcelable {
     private int mMaxSelectable;   // 最大选择数量
     private int mMinSelectable;   // 最小选择数量
     private long mMinPixels;       //最小size
+    private long mMaxPixels;        //最大size
     private boolean mEnableCamera;//是否可用相机
     private Set<MimeType> mMimeTypeSet;
-
-    private long mMaxPixels;
 
     public SelectionSpec() {
         mMinSelectable = 0;
@@ -57,7 +56,7 @@ public final class SelectionSpec implements Parcelable {
         mEnableCamera = false;
     }
 
-    /* package */ SelectionSpec(Parcel source) {
+    SelectionSpec(Parcel source) {
         mMinSelectable = source.readInt();
         mMaxSelectable = source.readInt();
         mMinPixels = source.readLong();

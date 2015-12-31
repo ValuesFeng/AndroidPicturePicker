@@ -42,7 +42,7 @@ public enum MimeType {
     private final String mMimeTypeName;
     private final Set<String> mExtensions;
 
-    private MimeType(String mimeTypeName, Set<String> extensions) {
+    MimeType(String mimeTypeName, Set<String> extensions) {
         mMimeTypeName = mimeTypeName;
         mExtensions = extensions;
     }

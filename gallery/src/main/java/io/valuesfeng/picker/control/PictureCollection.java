@@ -38,12 +38,9 @@ import io.valuesfeng.picker.utils.BundleUtils;
 public class PictureCollection implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int LOADER_ID = 2;
     private static final String ARGS_ALBUM = BundleUtils.buildKey(PictureCollection.class, "ARGS_ALBUM");
-    private static final String ARGS_ENABLE_CAPTURE = BundleUtils.buildKey(PictureCollection.class, "ARGS_ENABLE_CAPTURE");
     private WeakReference<Context> mContext;
     private LoaderManager mLoaderManager;
-    private GridView gridView;
     private PictureAdapter albumPhotoAdapter;
-    private SelectedUriCollection mCollection;
     private SelectionSpec selectionSpec;
 
     @Override
@@ -82,7 +79,6 @@ public class PictureCollection implements LoaderManager.LoaderCallbacks<Cursor> 
     public void onCreate(@NonNull FragmentActivity context, @NonNull GridView gridView, SelectedUriCollection mCollection, SelectionSpec selectionSpec) {
         mContext = new WeakReference<Context>(context);
         mLoaderManager = context.getSupportLoaderManager();
-        this.gridView = gridView;
         this.selectionSpec = selectionSpec;
         albumPhotoAdapter = new PictureAdapter(context, null, mCollection);
         gridView.setAdapter(albumPhotoAdapter);
