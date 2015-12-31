@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="38dip"
+    android:background="#0f0f0f"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/btn_back"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:scaleType="center"
+        android:layout_centerVertical="true"
+        android:src="@drawable/gallery_back"
+        android:paddingLeft="17dp"
+        android:paddingRight="20dp" />
+    <LinearLayout
+
+        android:layout_centerInParent="true"
+        android:id="@+id/selectFold"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp">
+
+        <TextView
+            android:layout_gravity="center_vertical"
+            android:id="@+id/foldName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14dp"
+            android:text="选择"
+            android:textColor="#d6d6d6" />
+        <ImageView
+           android:id="@+id/gallery_tip"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/gallery_down"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+             />
+    </LinearLayout>
+
+    <Button
+        android:visibility="gone"
+        android:id="@+id/change"
+        android:layout_toLeftOf="@+id/commit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp"
+        android:minHeight="1dp"
+        android:minWidth="1dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:text="切换"
+        android:textSize="14sp" />
+
+
+    <Button
+        android:visibility="gone"
+        android:id="@+id/commit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="16dp"
+        android:minHeight="1dp"
+        android:minWidth="1dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="5dp"
+        android:text="确定"
+        android:textSize="14sp" />
+
+
+</RelativeLayout>

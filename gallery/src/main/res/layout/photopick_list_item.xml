@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="50dp"
+    android:background="#161616"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="49.5dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="28dp"
+        android:paddingRight="10dp">
+            <TextView
+                android:id="@+id/foldName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="14dp"
+                android:textColor="#a7a7a7"
+                android:text="相机胶卷" />
+
+            <TextView
+                android:id="@+id/photoCount"
+                android:textSize="14dp"
+                android:textColor="#a7a7a7"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="(100)" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#1d1d1d" />
+</LinearLayout>

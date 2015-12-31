@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<cc.fotoplace.gallery.widget.GridViewItemRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/thumbnail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:adjustViewBounds="true" />
+
+    <ImageView
+        android:visibility="gone"
+        android:id="@+id/iconFore"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:background="#66666666"
+        android:adjustViewBounds="true" />
+
+    <CheckBox
+        android:visibility="gone"
+        android:id="@+id/check"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:button="@drawable/pick_photo_checkbox"
+        android:focusable="false" />
+
+</cc.fotoplace.gallery.widget.GridViewItemRelativeLayout>

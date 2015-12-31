@@ -1,0 +1,41 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <include
+        android:id="@+id/top_layout"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        layout="@layout/include_select_image_top" />
+    <GridView
+        android:layout_below="@+id/top_layout"
+        android:id="@+id/gridView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:horizontalSpacing="4dip"
+        android:numColumns="3"
+        android:background="@android:color/white"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="4dip"
+        android:padding="4dip" />
+    <FrameLayout
+        android:id="@+id/listViewParent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/top_layout"
+        android:background="#40000000"
+        android:visibility="invisible"
+        android:paddingBottom="45dp">
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:dividerHeight="0dp"
+            android:background="#55666666"
+            android:divider="@null"
+           />
+    </FrameLayout>
+
+</RelativeLayout>

@@ -1,0 +1,86 @@
+/*
+ * Copyright (C) 2014 nohana, Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+package cc.fotoplace.gallery.loader;
+
+import android.content.Context;
+import android.database.Cursor;
+import android.database.MatrixCursor;
+import android.database.MergeCursor;
+import android.net.Uri;
+import android.provider.MediaStore;
+import android.support.v4.content.CursorLoader;
+import android.util.Log;
+
+import cc.fotoplace.gallery.model.Album;
+import cc.fotoplace.gallery.model.Item;
+import cc.fotoplace.gallery.model.SelectionSpec;
+
+
+/**
+ * @author KeithYokoma
+ * @since 2014/03/27
+ * @version 1.0.0
+ * @hide
+ */
+public class AlbumPhotoLoader extends CursorLoader {
+    public static final String TAG = AlbumPhotoLoader.class.getSimpleName();
+    private static final String[] PROJECTION = { MediaStore.Images.Media._ID, MediaStore.Images.Media.DISPLAY_NAME };
+    private static final String ORDER_BY = MediaStore.Images.Media._ID + " DESC";
+    private final boolean mEnableCapture;
+    private static final String IS_WIDTH_SCREMM = " and width > height";
+    //MediaStore.Images.Media.SIZE =_size
+    private static final String IS_LARGE_SIZE = "_size > ? or _size is null";
+
+
+
+
+    public AlbumPhotoLoader(Context context, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder, boolean capture) {
+        super(context, uri, projection, selection, selectionArgs, sortOrder);
+        mEnableCapture = capture;
+    }
+
+    public static CursorLoader newInstance(Context context, Album album,SelectionSpec selectionSpec) {
+        if (album==null||album.isAll()) {
+            if(selectionSpec.isWideScreen()) {
+                return new AlbumPhotoLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION, "("+IS_LARGE_SIZE+")"+IS_WIDTH_SCREMM, new String[]{selectionSpec.getMinPixels() + ""}, ORDER_BY, selectionSpec.ismEnableCapture());
+            }else{
+                return new AlbumPhotoLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION, IS_LARGE_SIZE, new String[]{selectionSpec.getMinPixels() + ""}, ORDER_BY, selectionSpec.ismEnableCapture());
+            }
+        }
+        return newInstance(context, album, selectionSpec,false);
+    }
+    public static CursorLoader newInstance(Context context, Album album, SelectionSpec selectionSpec,boolean capture) {
+
+        if(selectionSpec.isWideScreen()) {
+            return new AlbumPhotoLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION,
+                    MediaStore.Images.Media.BUCKET_ID + " = ? and (" + IS_LARGE_SIZE+ ")"+IS_WIDTH_SCREMM, new String[]{album.getId(), selectionSpec.getMinPixels() + ""}, ORDER_BY, capture);
+        }else{
+            return new AlbumPhotoLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION,
+                    MediaStore.Images.Media.BUCKET_ID + " = ? and (" +IS_LARGE_SIZE+")", new String[]{album.getId(), selectionSpec.getMinPixels() + ""}, ORDER_BY, capture);
+        }
+    }
+
+    @Override
+    public Cursor loadInBackground() {
+        Cursor result = super.loadInBackground();
+        if (!mEnableCapture) {
+            return result;
+        }
+        MatrixCursor dummy = new MatrixCursor(PROJECTION);
+        dummy.addRow(new Object[] { Item.ITEM_ID_CAPTURE, Item.ITEM_DISPLAY_NAME_CAPTURE });
+        return new MergeCursor(new Cursor[] { dummy, result });
+    }
+}

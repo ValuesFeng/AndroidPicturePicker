@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">gallery</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="l_album_name_all">最近图片</string>
+    <string name="l_album_name_selected">选择图片</string>
+    <string name="l_album_name_camera">相机</string>
+    <string name="l_album_name_download">下载</string>
+    <string name="l_album_name_screen_shot">预览</string>
+
+    <string name="l_confirm_dialog_title">提示</string>
+    <string name="l_confirm_dialog_message">您确定要放弃本次选择的图片吗?</string>
+</resources>
