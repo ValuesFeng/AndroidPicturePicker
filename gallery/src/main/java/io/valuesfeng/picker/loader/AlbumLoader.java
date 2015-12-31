@@ -29,30 +29,24 @@ import io.valuesfeng.picker.model.SelectionSpec;
 
 /**
  * Wrapper for {@link android.support.v4.content.CursorLoader} to merge custom cursors.
+ *
  * @author KeithYokoma
- * @since 2014/03/26
  * @version 1.0.0
  * @hide
+ * @since 2014/03/26
  */
 public class AlbumLoader extends CursorLoader {
-    public static final String TAG = AlbumLoader.class.getSimpleName();
-    private static final String[] PROJECTION = { MediaStore.Images.Media.BUCKET_ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.Images.Media._ID ,"count(bucket_id) as cou"};
-    private  static final String BUCKET_GROUP_BY = ") GROUP BY  1,(2";
+    private static final String[] PROJECTION = {MediaStore.Images.Media.BUCKET_ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.Images.Media._ID, "count(bucket_id) as cou"};
+    private static final String BUCKET_GROUP_BY = ") GROUP BY  1,(2";
     private static final String BUCKET_ORDER_BY = "MAX(datetaken) DESC";
     private static final String MEDIA_ID_DUMMY = String.valueOf(-1);
     private static final String IS_LARGE_SIZE = " _size > ? or _size is null";
-//    private static final String IS_WIDTH_SCREMM = " and width > height";
-    private SelectionSpec selectionSpec;
 
     public static CursorLoader newInstance(Context context, SelectionSpec selectionSpec) {
-//       if(selectionSpec.isWideScreen()){
-//           return new AlbumLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION, "("+IS_LARGE_SIZE +" ) "+IS_WIDTH_SCREMM +BUCKET_GROUP_BY, new String[]{ selectionSpec.getMinPixels()+"" } , BUCKET_ORDER_BY);
-//       }else{
-           return new AlbumLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION, IS_LARGE_SIZE +BUCKET_GROUP_BY, new String[]{ selectionSpec.getMinPixels()+"" } , BUCKET_ORDER_BY);
-//       }
+        return new AlbumLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION, IS_LARGE_SIZE + BUCKET_GROUP_BY, new String[]{selectionSpec.getMinPixels() + ""}, BUCKET_ORDER_BY);
     }
 
-    public AlbumLoader(Context context, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    private AlbumLoader(Context context, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         super(context, uri, projection, selection, selectionArgs, sortOrder);
     }
 
@@ -61,14 +55,14 @@ public class AlbumLoader extends CursorLoader {
         Cursor albums = super.loadInBackground();
         MatrixCursor allAlbum = new MatrixCursor(PROJECTION);
 
-         long count =0;
-        if(albums.getCount()>0){
-            while (albums.moveToNext()){
-                count+=albums.getLong(3);
+        long count = 0;
+        if (albums.getCount() > 0) {
+            while (albums.moveToNext()) {
+                count += albums.getLong(3);
             }
         }
-        allAlbum.addRow(new String[] {Album.ALBUM_ID_ALL, Album.ALBUM_NAME_ALL, MEDIA_ID_DUMMY,count+""});
+        allAlbum.addRow(new String[]{Album.ALBUM_ID_ALL, Album.ALBUM_NAME_ALL, MEDIA_ID_DUMMY, count + ""});
 
-        return new MergeCursor(new Cursor[]{ allAlbum, albums });
+        return new MergeCursor(new Cursor[]{allAlbum, albums});
     }
 }

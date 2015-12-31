@@ -33,17 +33,17 @@ import android.support.annotation.Nullable;
  * @hide
  * @since 2014/03/24
  */
-public class Item implements Parcelable {
-    public static final Creator<Item> CREATOR = new Creator<Item>() {
+public class Picture implements Parcelable {
+    public static final Creator<Picture> CREATOR = new Creator<Picture>() {
         @Override
         @Nullable
-        public Item createFromParcel(Parcel source) {
-            return new Item(source);
+        public Picture createFromParcel(Parcel source) {
+            return new Picture(source);
         }
 
         @Override
-        public Item[] newArray(int size) {
-            return new Item[size];
+        public Picture[] newArray(int size) {
+            return new Picture[size];
         }
     };
     public static final long ITEM_ID_CAPTURE = -1;
@@ -52,16 +52,16 @@ public class Item implements Parcelable {
 
     private boolean isSelected = false;
 
-    /* package */ Item(long id) {
+    /* package */ Picture(long id) {
         mId = id;
     }
 
-    /* package */ Item(Parcel source) {
+    /* package */ Picture(Parcel source) {
         mId = source.readLong();
     }
 
-    public static Item valueOf(Cursor cursor) {
-        return new Item(cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID)));
+    public static Picture valueOf(Cursor cursor) {
+        return new Picture(cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID)));
     }
 
     @Override

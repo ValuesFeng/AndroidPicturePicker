@@ -8,6 +8,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Parcelable;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -24,7 +25,7 @@ import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 
 import java.util.ArrayList;
 
-import io.valuesfeng.picker.control.AlbumPhotoCollection;
+import io.valuesfeng.picker.control.PictureCollection;
 import io.valuesfeng.picker.control.AlbumCollection;
 import io.valuesfeng.picker.model.Album;
 import io.valuesfeng.picker.control.SelectedUriCollection;
@@ -52,7 +53,7 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
     private SelectionSpec selectionSpec;
     private ImageView btnBack;
     private AlbumCollection albumCollection =new AlbumCollection();
-    private final AlbumPhotoCollection mPhotoCollection = new AlbumPhotoCollection();
+    private final PictureCollection mPhotoCollection = new PictureCollection();
     private final SelectedUriCollection mCollection = new SelectedUriCollection(this);
     private String mCapturePhotoUriHolder;
 
@@ -117,9 +118,7 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
                 showFolderList();
             }
         }
-
     };
-
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
@@ -127,6 +126,12 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
         albumCollection.onSaveInstanceState(outState);
         outState.putString(STATE_CAPTURE_PHOTO_URI, mCapturePhotoUriHolder);
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        albumCollection.onRestoreInstanceState(savedInstanceState);
     }
 
     @Override
@@ -147,7 +152,6 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
     public void prepareCapture(String uri) {
         mCapturePhotoUriHolder = uri;
     }
-
 
     private void showFolderList() {
         galleryTip.setImageResource(R.drawable.gallery_up);
@@ -225,7 +229,6 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
 
     @Override
     public void onSelect(Album album) {
-
         hideFolderList();
         mFoldName.setText(album.getDisplayName(this));
         mPhotoCollection.resetLoad(album);
@@ -233,7 +236,7 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
 
     @Override
     public void onReset(Album album) {
-
+        Log.i("aaaaa","reset");
 //        mPhotoCollection.load(album);
     }
 }

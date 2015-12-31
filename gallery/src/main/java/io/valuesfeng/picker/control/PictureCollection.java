@@ -25,30 +25,26 @@ import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 import android.widget.GridView;
 
-
 import java.lang.ref.WeakReference;
 
-import io.valuesfeng.picker.adapter.AlbumPhotoAdapter;
-import io.valuesfeng.picker.loader.AlbumPhotoLoader;
+import io.valuesfeng.picker.adapter.PictureAdapter;
+import io.valuesfeng.picker.loader.PictureLoader;
 import io.valuesfeng.picker.model.Album;
 import io.valuesfeng.picker.model.SelectionSpec;
-import io.valuesfeng.picker.utils.AlbumHelper;
 import io.valuesfeng.picker.utils.BundleUtils;
 
 /**
  */
-public class AlbumPhotoCollection implements LoaderManager.LoaderCallbacks<Cursor> {
+public class PictureCollection implements LoaderManager.LoaderCallbacks<Cursor> {
     private static final int LOADER_ID = 2;
-    private static final String ARGS_ALBUM = BundleUtils.buildKey(AlbumPhotoCollection.class, "ARGS_ALBUM");
-    private static final String ARGS_ENABLE_CAPTURE = BundleUtils.buildKey(AlbumPhotoCollection.class, "ARGS_ENABLE_CAPTURE");
+    private static final String ARGS_ALBUM = BundleUtils.buildKey(PictureCollection.class, "ARGS_ALBUM");
+    private static final String ARGS_ENABLE_CAPTURE = BundleUtils.buildKey(PictureCollection.class, "ARGS_ENABLE_CAPTURE");
     private WeakReference<Context> mContext;
     private LoaderManager mLoaderManager;
-    //    private AlbumPhotoCallbacks mCallbacks;
     private GridView gridView;
-    private AlbumPhotoAdapter albumPhotoAdapter;
+    private PictureAdapter albumPhotoAdapter;
     private SelectedUriCollection mCollection;
     private SelectionSpec selectionSpec;
-    AlbumHelper albumHelper;
 
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
@@ -62,7 +58,7 @@ public class AlbumPhotoCollection implements LoaderManager.LoaderCallbacks<Curso
             return null;
         }
 
-        return AlbumPhotoLoader.newInstance(context, album, selectionSpec);
+        return PictureLoader.newInstance(context, album, selectionSpec);
     }
 
     @Override
@@ -71,7 +67,6 @@ public class AlbumPhotoCollection implements LoaderManager.LoaderCallbacks<Curso
         if (context == null) {
             return;
         }
-
         albumPhotoAdapter.swapCursor(data);
     }
 
@@ -81,7 +76,6 @@ public class AlbumPhotoCollection implements LoaderManager.LoaderCallbacks<Curso
         if (context == null) {
             return;
         }
-
         albumPhotoAdapter.swapCursor(null);
     }
 
@@ -90,8 +84,7 @@ public class AlbumPhotoCollection implements LoaderManager.LoaderCallbacks<Curso
         mLoaderManager = context.getSupportLoaderManager();
         this.gridView = gridView;
         this.selectionSpec = selectionSpec;
-        albumHelper = AlbumHelper.getInstance(context);
-        albumPhotoAdapter = new AlbumPhotoAdapter(context, null, mCollection, albumHelper.getThumbnail());
+        albumPhotoAdapter = new PictureAdapter(context, null, mCollection);
         gridView.setAdapter(albumPhotoAdapter);
     }
 

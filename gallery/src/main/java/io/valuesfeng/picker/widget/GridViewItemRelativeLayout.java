@@ -21,8 +21,6 @@ import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.util.AttributeSet;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
@@ -30,14 +28,10 @@ import com.nostra13.universalimageloader.core.DisplayImageOptions;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 
-import java.io.File;
-
 import io.valuesfeng.picker.ImageSelectActivity;
 import io.valuesfeng.picker.R;
 import io.valuesfeng.picker.control.SelectedUriCollection;
-import io.valuesfeng.picker.model.Item;
-import io.valuesfeng.picker.utils.AlbumHelper;
-import io.valuesfeng.picker.utils.PicturePickerUtils;
+import io.valuesfeng.picker.model.Picture;
 
 /**
  * @author KeithYokoma
@@ -49,7 +43,7 @@ public class GridViewItemRelativeLayout extends RelativeLayout {
 
     private ImageView imageView;
     private ImageView imageCheck;
-    private Item item;
+    private Picture item;
     SelectedUriCollection mCollection;
 
     private DisplayImageOptions optionsImage = new DisplayImageOptions
@@ -122,7 +116,7 @@ public class GridViewItemRelativeLayout extends RelativeLayout {
         });
     }
 
-    public void setItem(Item item) {
+    public void setItem(Picture item) {
         this.item = item;
         imageView.clearColorFilter();
         imageCheck.setImageResource(R.drawable.pick_photo_checkbox_normal);

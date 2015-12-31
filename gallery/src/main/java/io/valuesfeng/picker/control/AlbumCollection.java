@@ -41,7 +41,7 @@ import io.valuesfeng.picker.utils.HandlerUtils;
  * @version 1.0.0
  * @hide
  */
-public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor> ,AdapterView.OnItemClickListener{
+public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor>, AdapterView.OnItemClickListener {
     private static final int LOADER_ID = 1;
     private static final String STATE_CURRENT_SELECTION = BundleUtils.buildKey(AlbumCollection.class, "STATE_CURRENT_SELECTION");
     private WeakReference<Context> mContext;
@@ -51,17 +51,18 @@ public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor> ,A
     private SelectionSpec selectionSpec;
     private ListView listView;
     private AlbumAdapter albumAdapter;
+
     @Override
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         Context context = mContext.get();
         if (context == null) {
             return null;
         }
-        return AlbumLoader.newInstance(context,selectionSpec);
+        return AlbumLoader.newInstance(context, selectionSpec);
     }
 
     @Override
-    public void onLoadFinished(Loader<Cursor> loader,final Cursor data) {
+    public void onLoadFinished(Loader<Cursor> loader, final Cursor data) {
         Context context = mContext.get();
         if (context == null) {
             return;
@@ -70,10 +71,10 @@ public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor> ,A
         HandlerUtils.getMainHandler().post(new Runnable() {
             @Override
             public void run() {
-                if(data.getCount()>0){
+                if (data.getCount() > 0) {
                     data.moveToFirst();
                     Album currentAlbum = Album.valueOf(data);
-                    if(directorySelectListener!=null){
+                    if (directorySelectListener != null) {
                         directorySelectListener.onReset(currentAlbum);
                     }
 
@@ -88,17 +89,15 @@ public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor> ,A
         if (context == null) {
             return;
         }
-
         albumAdapter.swapCursor(null);
-
     }
 
-    public void onCreate(FragmentActivity activity, OnDirectorySelectListener directorySelectListener,SelectionSpec selectionSpec,ListView listView) {
+    public void onCreate(FragmentActivity activity, OnDirectorySelectListener directorySelectListener, SelectionSpec selectionSpec, ListView listView) {
         mContext = new WeakReference<Context>(activity);
         mLoaderManager = activity.getSupportLoaderManager();
         this.directorySelectListener = directorySelectListener;
-        this.selectionSpec=selectionSpec;
-        this.listView=listView;
+        this.selectionSpec = selectionSpec;
+        this.listView = listView;
         albumAdapter = new AlbumAdapter(activity, null);
         listView.setAdapter(albumAdapter);
         listView.setOnItemClickListener(this);
@@ -108,7 +107,6 @@ public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor> ,A
         if (savedInstanceState == null) {
             return;
         }
-
         mCurrentSelection = savedInstanceState.getInt(STATE_CURRENT_SELECTION);
     }
 
@@ -124,6 +122,7 @@ public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor> ,A
     public void loadAlbums() {
         mLoaderManager.initLoader(LOADER_ID, null, this);
     }
+
     public void resetLoadAlbums() {
         mLoaderManager.restartLoader(LOADER_ID, null, this);
     }
@@ -139,7 +138,7 @@ public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor> ,A
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if(directorySelectListener!=null){
+        if (directorySelectListener != null) {
             Cursor cursor = (Cursor) parent.getItemAtPosition(position);
             Album album = Album.valueOf(cursor);
             directorySelectListener.onSelect(album);
@@ -148,6 +147,7 @@ public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor> ,A
 
     public interface OnDirectorySelectListener {
         void onSelect(Album album);
+
         void onReset(Album album);
     }
 

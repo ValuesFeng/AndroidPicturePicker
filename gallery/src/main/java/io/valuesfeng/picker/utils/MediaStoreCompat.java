@@ -104,7 +104,6 @@ public class MediaStoreCompat {
                 }
             }
         }
-
         return captured;
     }
 
@@ -143,32 +142,27 @@ public class MediaStoreCompat {
     public static long copyFileStream(FileInputStream is, FileOutputStream os) throws IOException {
         FileChannel srcChannel = null;
         FileChannel destChannel = null;
-
-        long var4;
+        long length;
         try {
             srcChannel = is.getChannel();
             destChannel = os.getChannel();
-            var4 = srcChannel.transferTo(0L, srcChannel.size(), destChannel);
+            length = srcChannel.transferTo(0L, srcChannel.size(), destChannel);
         } finally {
             if(srcChannel != null) {
                 srcChannel.close();
             }
-
             if(destChannel != null) {
                 destChannel.close();
             }
-
         }
-
-        return var4;
+        return length;
     }
 
     private Uri findPhotoFromRecentlyTaken(File file) {
         if(this.mRecentlyUpdatedPhotos == null) {
             this.updateLatestPhotos();
         }
-
-        long filesize = file.length();
+        long fileSize = file.length();
         long taken = ExifInterfaceCompat.getExifDateTimeInMillis(file.getAbsolutePath());
         int maxPoint = 0;
         MediaStoreCompat.PhotoContent maxItem = null;
@@ -177,20 +171,17 @@ public class MediaStoreCompat {
         while(i$.hasNext()) {
             MediaStoreCompat.PhotoContent item = (MediaStoreCompat.PhotoContent)i$.next();
             int point = 0;
-            if((long)item.size == filesize) {
+            if((long)item.size == fileSize) {
                 ++point;
             }
-
             if(item.taken == taken) {
                 ++point;
             }
-
             if(point > maxPoint) {
                 maxPoint = point;
                 maxItem = item;
             }
         }
-
         if(maxItem != null) {
             this.generateThumbnails(maxItem.id);
             return ContentUris.withAppendedId(Media.EXTERNAL_CONTENT_URI, maxItem.id);
@@ -219,8 +210,8 @@ public class MediaStoreCompat {
             fis.close();
             this.generateThumbnails(ContentUris.parseId(imageUri));
             return imageUri;
-        } catch (Exception var8) {
-            Log.w(TAG, "cannot insert", var8);
+        } catch (Exception e) {
+            Log.w(TAG, "cannot insert", e);
             return null;
         }
     }
@@ -247,16 +238,14 @@ public class MediaStoreCompat {
                 c.close();
             }
         }
-
     }
 
     private void generateThumbnails(long imageId) {
         try {
             Thumbnails.getThumbnail(this.mContext.getContentResolver(), imageId, 1, (Options)null);
-        } catch (NullPointerException var4) {
-            ;
+        } catch (NullPointerException e) {
+            e.printStackTrace();
         }
-
     }
 
     @TargetApi(8)

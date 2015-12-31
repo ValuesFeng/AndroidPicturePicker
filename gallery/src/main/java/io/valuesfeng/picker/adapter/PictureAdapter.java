@@ -17,46 +17,31 @@ package io.valuesfeng.picker.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.PorterDuff;
 import android.support.v4.widget.CursorAdapter;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 
-import com.nostra13.universalimageloader.core.DisplayImageOptions;
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.assist.ImageScaleType;
-
-import java.io.File;
 import java.util.Map;
 
-import io.valuesfeng.picker.ImageSelectActivity;
 import io.valuesfeng.picker.R;
-import io.valuesfeng.picker.model.Item;
+import io.valuesfeng.picker.model.Picture;
 import io.valuesfeng.picker.control.SelectedUriCollection;
-import io.valuesfeng.picker.utils.PicturePickerUtils;
 import io.valuesfeng.picker.widget.GridViewItemRelativeLayout;
 
 /**
  */
-public class AlbumPhotoAdapter extends CursorAdapter {
+public class PictureAdapter extends CursorAdapter {
     LayoutInflater mInflater;
     Context mContext;
     SelectedUriCollection mCollection;
-    Map<Long, String> map;
 
-    public AlbumPhotoAdapter(Context context, Cursor c, SelectedUriCollection mCollection, Map<Long, String> map) {
+    public PictureAdapter(Context context, Cursor c, SelectedUriCollection mCollection) {
         super(context, c, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         mInflater = LayoutInflater.from(context);
         mContext = context;
         this.mCollection = mCollection;
-        this.map = map;
     }
 
     private ViewHolder viewHolder;
@@ -71,7 +56,7 @@ public class AlbumPhotoAdapter extends CursorAdapter {
     @Override
     public void bindView(View view, final Context context, Cursor cursor) {
         viewHolder = (ViewHolder) view.getTag();
-        viewHolder.itemView.setItem(Item.valueOf(cursor));
+        viewHolder.itemView.setItem(Picture.valueOf(cursor));
     }
 
     static class ViewHolder {
