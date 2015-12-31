@@ -1,7 +1,6 @@
 package io.valuesfeng.picker;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -28,7 +27,7 @@ import java.util.ArrayList;
 import io.valuesfeng.picker.control.AlbumPhotoCollection;
 import io.valuesfeng.picker.control.AlbumCollection;
 import io.valuesfeng.picker.model.Album;
-import io.valuesfeng.picker.model.SelectedUriCollection;
+import io.valuesfeng.picker.control.SelectedUriCollection;
 import io.valuesfeng.picker.model.SelectionSpec;
 import io.valuesfeng.picker.utils.BundleUtils;
 import io.valuesfeng.picker.utils.MediaStoreCompat;
@@ -36,19 +35,18 @@ import io.valuesfeng.picker.utils.MediaStoreCompat;
 
 public class ImageSelectActivity extends FragmentActivity implements ConfirmationDialogFragment.ConfirmationSelectionListener,AlbumCollection.OnDirectorySelectListener {
 
-    private static final String STATE_SELECTION = BundleUtils.buildKey(ImageSelectActivity.class, "STATE_SELECTION");
     public static final String EXTRA_RESULT_SELECTION = BundleUtils.buildKey(ImageSelectActivity.class, "EXTRA_RESULT_SELECTION");
     public static final String EXTRA_SELECTION_SPEC = BundleUtils.buildKey(ImageSelectActivity.class, "EXTRA_SELECTION_SPEC");
     public static final String EXTRA_RESUME_LIST = BundleUtils.buildKey(ImageSelectActivity.class, "EXTRA_RESUME_LIST");
-    private static final String ARGS_ALBUM = BundleUtils.buildKey(ImageSelectActivity.class, "ARGS_ALBUM");
+
     public static final String STATE_CAPTURE_PHOTO_URI = BundleUtils.buildKey(ImageSelectActivity.class, "STATE_CAPTURE_PHOTO_URI");
+
     private TextView mFoldName;
     private View mListViewGroup;
     private ListView mListView;
     private GridView mGridView;
     public static final int REQUEST_CODE_CAPTURE = 3;
     private MediaStoreCompat mMediaStoreCompat;
-    private Button change;
     private Button commit;
     private ImageView galleryTip;
     private SelectionSpec selectionSpec;
@@ -69,7 +67,7 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
         mCollection.prepareSelectionSpec(selectionSpec);
         mCollection.setDefaultSelection(getIntent().<Uri>getParcelableArrayListExtra(EXTRA_RESUME_LIST));
         mGridView = (GridView) findViewById(R.id.gridView);
-        mGridView.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(),true,true));
+        mGridView.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(),false,true));
         mListView = (ListView) findViewById(R.id.listView);
         btnBack = (ImageView) findViewById(R.id.btn_back);
         mListViewGroup = findViewById(R.id.listViewParent);
@@ -77,7 +75,6 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
         mFoldName = (TextView) findViewById(R.id.foldName);
         galleryTip = (ImageView) findViewById(R.id.gallery_tip);
         LinearLayout selectFold = (LinearLayout) findViewById(R.id.selectFold);
-        change = (Button) findViewById(R.id.change);
         commit = (Button) findViewById(R.id.commit);
         mFoldName.setText("最近图片");
         selectFold.setOnClickListener(mOnClickFoldName);
@@ -85,29 +82,14 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
         albumCollection.loadAlbums();
         mPhotoCollection.onCreate(ImageSelectActivity.this,mGridView,mCollection,selectionSpec);
         mPhotoCollection.loadAllPhoto();
-        change.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (selectionSpec.isWideScreen()) {
-                    selectionSpec.setIsWideScreen(false);
-                } else {
-                    selectionSpec.setIsWideScreen(true);
-                }
-                albumCollection.loadAlbums();
-            }
-        });
         commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (mCollection.isEmpty()) {
                     Toast.makeText(getApplicationContext(),"您还未选择图片",Toast.LENGTH_LONG).show();
                 }else{
-
                     setResult();
-
                 }
-
             }
         });
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -159,9 +141,7 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
                    setResult();
                 }
             }
-
         }
-
     }
 
     public void prepareCapture(String uri) {
@@ -175,7 +155,6 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
         mListView.setVisibility(View.VISIBLE);
         Animation animation = AnimationUtils.loadAnimation(this, R.anim.listview_up);
         Animation fadeIn = AnimationUtils.loadAnimation(this, R.anim.listview_fade_in);
-
 
         mListView.startAnimation(animation);
         mListViewGroup.startAnimation(fadeIn);
@@ -205,11 +184,9 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
         mListViewGroup.startAnimation(fadeOut);
     }
 
-
     public MediaStoreCompat getMediaStoreCompat() {
         return mMediaStoreCompat;
     }
-
 
     @Override
     protected void onDestroy() {
@@ -234,7 +211,6 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
     public void showCameraAction() {
         mCapturePhotoUriHolder = mMediaStoreCompat.invokeCameraCapture(this, ImageSelectActivity.REQUEST_CODE_CAPTURE);
     }
-
 
     @Override
     public void onPositive() {

@@ -16,7 +16,6 @@ import java.util.Map;
  */
 public class AlbumHelper {
 
-
     private Context context;
 
     private ContentResolver cr;
@@ -41,7 +40,6 @@ public class AlbumHelper {
         }
     }
 
-
     public Map<Long,String> getThumbnail() {
         String[] projection = { MediaStore.Images.Thumbnails._ID, Thumbnails.IMAGE_ID,Thumbnails.DATA};
         Cursor cursor1 = Thumbnails.queryMiniThumbnails(cr, Thumbnails.EXTERNAL_CONTENT_URI,Thumbnails.MINI_KIND, projection);
@@ -51,7 +49,7 @@ public class AlbumHelper {
     }
 
     private Map<Long,String> getThumbnailColumnData(Cursor cur) {
-        Map<Long,String> map = new HashMap<Long,String>();
+        Map<Long,String> map = new HashMap<>();
         if (cur.moveToFirst()) {
             Long image_id;
             String image_path;

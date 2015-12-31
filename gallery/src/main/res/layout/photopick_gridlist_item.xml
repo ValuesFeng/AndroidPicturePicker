@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <io.valuesfeng.picker.widget.GridViewItemRelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rl"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -7,25 +8,14 @@
         android:id="@+id/thumbnail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:adjustViewBounds="true" />
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop" />
 
     <ImageView
-        android:visibility="gone"
-        android:id="@+id/iconFore"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:background="#66666666"
-        android:adjustViewBounds="true" />
-
-    <CheckBox
-        android:visibility="gone"
         android:id="@+id/check"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
-        android:button="@drawable/pick_photo_checkbox"
-        android:focusable="false" />
+        android:button="@drawable/pick_photo_checkbox" />
 
 </io.valuesfeng.picker.widget.GridViewItemRelativeLayout>

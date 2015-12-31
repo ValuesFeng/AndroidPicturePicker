@@ -13,7 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package io.valuesfeng.picker.model;
+package io.valuesfeng.picker.control;
 
 import android.content.Context;
 import android.net.Uri;
@@ -26,26 +26,28 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import io.valuesfeng.picker.model.SelectionSpec;
 import io.valuesfeng.picker.utils.BundleUtils;
 
 /**
  */
 public class SelectedUriCollection {
     private static final String STATE_SELECTION = BundleUtils.buildKey(SelectedUriCollection.class, "STATE_SELECTION");
+    private static final String STATE_SELECTION_POSITION = BundleUtils.buildKey(SelectedUriCollection.class, "STATE_SELECTION_POSITION");
     private final WeakReference<Context> mContext;
     private Set<Uri> mUris;
     private SelectionSpec mSpec;
 
     public SelectedUriCollection(Context context) {
-        mContext = new WeakReference<Context>(context);
+        mContext = new WeakReference<>(context);
     }
 
     public void onCreate(Bundle savedInstanceState) {
         if (savedInstanceState == null) {
-            mUris = new LinkedHashSet<Uri>();
+            mUris = new LinkedHashSet<>();
         } else {
             List<Uri> saved = savedInstanceState.getParcelableArrayList(STATE_SELECTION);
-            mUris = new LinkedHashSet<Uri>(saved);
+            mUris = new LinkedHashSet<>(saved);
         }
     }
 
@@ -58,7 +60,7 @@ public class SelectedUriCollection {
     }
 
     public void onSaveInstanceState(Bundle outState) {
-        outState.putParcelableArrayList(STATE_SELECTION, new ArrayList<Uri>(mUris));
+        outState.putParcelableArrayList(STATE_SELECTION, new ArrayList<>(mUris));
     }
 
     public boolean add(Uri uri) {
@@ -80,12 +82,13 @@ public class SelectedUriCollection {
     public boolean isSelected(Uri uri) {
         return mUris.contains(uri);
     }
+
     public boolean isCountInRange() {
-        return mSpec.getMinSelectable() <= mUris.size() && !isCountOver();
+        return mSpec.getMinSelectable() <= mUris.size() && mUris.size() <= mSpec.getMaxSelectable();
     }
 
     public boolean isCountOver() {
-        return mUris.size() > mSpec.getMaxSelectable();
+        return mUris.size() >= mSpec.getMaxSelectable();
     }
 
     public int count() {

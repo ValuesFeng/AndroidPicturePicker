@@ -54,7 +54,7 @@ public class Album implements Parcelable {
     private final String mId;       //BUCKET_ID
     private final long mCoverId;   //Media_ID
     private final String mDisplayName;//BUCKET_DISPLAY_NAME
-    private final String mCount;
+    private final String mCount;        // photo count
 
     /* package */
 

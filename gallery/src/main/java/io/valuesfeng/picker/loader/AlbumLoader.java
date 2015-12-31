@@ -41,25 +41,20 @@ public class AlbumLoader extends CursorLoader {
     private static final String BUCKET_ORDER_BY = "MAX(datetaken) DESC";
     private static final String MEDIA_ID_DUMMY = String.valueOf(-1);
     private static final String IS_LARGE_SIZE = " _size > ? or _size is null";
-    private static final String IS_WIDTH_SCREMM = " and width > height";
+//    private static final String IS_WIDTH_SCREMM = " and width > height";
     private SelectionSpec selectionSpec;
 
     public static CursorLoader newInstance(Context context, SelectionSpec selectionSpec) {
-       if(selectionSpec.isWideScreen()){
-           return new AlbumLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION, "("+IS_LARGE_SIZE +" ) "+IS_WIDTH_SCREMM +BUCKET_GROUP_BY, new String[]{ selectionSpec.getMinPixels()+"" } , BUCKET_ORDER_BY);
-       }else{
+//       if(selectionSpec.isWideScreen()){
+//           return new AlbumLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION, "("+IS_LARGE_SIZE +" ) "+IS_WIDTH_SCREMM +BUCKET_GROUP_BY, new String[]{ selectionSpec.getMinPixels()+"" } , BUCKET_ORDER_BY);
+//       }else{
            return new AlbumLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION, IS_LARGE_SIZE +BUCKET_GROUP_BY, new String[]{ selectionSpec.getMinPixels()+"" } , BUCKET_ORDER_BY);
-
-       }
+//       }
     }
+
     public AlbumLoader(Context context, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
         super(context, uri, projection, selection, selectionArgs, sortOrder);
     }
-
-//    public AlbumLoader(Context context) {
-//        super(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION,MediaStore.Images.Media.SIZE >selectionSpec.getMinPixels() +BUCKET_GROUP_BY, null, BUCKET_ORDER_BY);
-//
-//    }
 
     @Override
     public Cursor loadInBackground() {

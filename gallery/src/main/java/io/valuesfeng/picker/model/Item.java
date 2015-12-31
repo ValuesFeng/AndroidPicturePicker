@@ -29,9 +29,9 @@ import android.support.annotation.Nullable;
 
 /**
  * @author KeithYokoma
- * @since 2014/03/24
  * @version 1.0.0
  * @hide
+ * @since 2014/03/24
  */
 public class Item implements Parcelable {
     public static final Creator<Item> CREATOR = new Creator<Item>() {
@@ -49,6 +49,8 @@ public class Item implements Parcelable {
     public static final long ITEM_ID_CAPTURE = -1;
     public static final String ITEM_DISPLAY_NAME_CAPTURE = "Capture";
     private final long mId;
+
+    private boolean isSelected = false;
 
     /* package */ Item(long id) {
         mId = id;
@@ -79,17 +81,21 @@ public class Item implements Parcelable {
     public Uri buildContentUri() {
         return ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mId);
     }
-    public Bitmap getThumbnail(Context context) {
 
+    public Bitmap getThumbnail(Context context) {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inDither = false;
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         ContentResolver contentResolver = context.getContentResolver();
-       return MediaStore.Images.Thumbnails.getThumbnail(contentResolver,mId, MediaStore.Images.Thumbnails.MICRO_KIND,options);
+        return MediaStore.Images.Thumbnails.getThumbnail(contentResolver, mId, MediaStore.Images.Thumbnails.MICRO_KIND, options);
 
     }
 
     public boolean isCapture() {
         return mId == ITEM_ID_CAPTURE;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
     }
 }

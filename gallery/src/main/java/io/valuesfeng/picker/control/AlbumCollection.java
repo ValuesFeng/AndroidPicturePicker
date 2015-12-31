@@ -66,7 +66,6 @@ public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor> ,A
         if (context == null) {
             return;
         }
-
         albumAdapter.swapCursor(data);
         HandlerUtils.getMainHandler().post(new Runnable() {
             @Override
@@ -81,8 +80,6 @@ public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor> ,A
                 }
             }
         });
-
-
     }
 
     @Override

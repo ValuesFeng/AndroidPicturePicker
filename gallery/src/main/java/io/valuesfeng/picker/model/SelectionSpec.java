@@ -44,8 +44,7 @@ public final class SelectionSpec implements Parcelable {
     private int mMaxSelectable;   // 最大选择数量
     private int mMinSelectable;   // 最小选择数量
     private long mMinPixels;       //最小size
-    private boolean mEnableCapture;//是否可用相机
-    private boolean isWideScreen;//是否宽屏模式
+    private boolean mEnableCamera;//是否可用相机
     private Set<MimeType> mMimeTypeSet;
 
     private long mMaxPixels;
@@ -55,8 +54,7 @@ public final class SelectionSpec implements Parcelable {
         mMaxSelectable = 1;
         mMinPixels = 0L;
         mMaxPixels = Long.MAX_VALUE;
-        mEnableCapture = false;
-        isWideScreen = false;
+        mEnableCamera = false;
     }
 
     /* package */ SelectionSpec(Parcel source) {
@@ -64,8 +62,7 @@ public final class SelectionSpec implements Parcelable {
         mMaxSelectable = source.readInt();
         mMinPixels = source.readLong();
         mMaxPixels = source.readLong();
-        mEnableCapture = ParcelUtils.readBoolean(source);
-        isWideScreen = ParcelUtils.readBoolean(source);
+        mEnableCamera = ParcelUtils.readBoolean(source);
         List<MimeType> list = new ArrayList<MimeType>();
         source.readList(list, MimeType.class.getClassLoader());
         mMimeTypeSet = EnumSet.copyOf(list);
@@ -82,17 +79,16 @@ public final class SelectionSpec implements Parcelable {
         dest.writeInt(mMaxSelectable);
         dest.writeLong(mMinPixels);
         dest.writeLong(mMaxPixels);
-        ParcelUtils.writeBoolean(dest, mEnableCapture);
-        ParcelUtils.writeBoolean(dest, isWideScreen);
-        dest.writeList(new ArrayList<MimeType>(mMimeTypeSet));
+        ParcelUtils.writeBoolean(dest, mEnableCamera);
+        dest.writeList(new ArrayList<>(mMimeTypeSet));
     }
 
-    public boolean ismEnableCapture() {
-        return mEnableCapture;
+    public boolean ismEnableCamera() {
+        return mEnableCamera;
     }
 
-    public void setmEnableCapture(boolean mEnableCapture) {
-        this.mEnableCapture = mEnableCapture;
+    public void setmEnableCamera(boolean mEnableCamera) {
+        this.mEnableCamera = mEnableCamera;
     }
 
     public void setMaxSelectable(int maxSelectable) {
@@ -126,28 +122,13 @@ public final class SelectionSpec implements Parcelable {
     public long getMinPixels() {
         return mMinPixels;
     }
-//    public String getMinPixels() {
-//
-//        return Long.parseLong(mMinPixels);
-//    }
-
-
-    public boolean isWideScreen() {
-        return isWideScreen;
-    }
 
     public boolean isSingleChoose() {
-
-        if(mMinSelectable==0&&mMaxSelectable==1){
+        if (mMinSelectable == 0 && mMaxSelectable == 1) {
             return true;
-        }else {
+        } else {
             return false;
         }
-    }
-
-
-    public void setIsWideScreen(boolean isWideScreen) {
-        this.isWideScreen = isWideScreen;
     }
 
     public long getMaxPixels() {

@@ -9,60 +9,41 @@
         android:id="@+id/btn_back"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:scaleType="center"
         android:layout_centerVertical="true"
-        android:src="@drawable/gallery_back"
         android:paddingLeft="17dp"
-        android:paddingRight="20dp" />
-    <LinearLayout
+        android:paddingRight="20dp"
+        android:scaleType="center"
+        android:src="@drawable/gallery_back" />
 
-        android:layout_centerInParent="true"
+    <LinearLayout
         android:id="@+id/selectFold"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:layout_centerInParent="true"
         android:gravity="center_vertical"
         android:orientation="horizontal"
         android:paddingLeft="20dp"
         android:paddingRight="20dp">
 
         <TextView
-            android:layout_gravity="center_vertical"
             android:id="@+id/foldName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14dp"
-            android:text="选择"
-            android:textColor="#d6d6d6" />
-        <ImageView
-           android:id="@+id/gallery_tip"
             android:layout_gravity="center_vertical"
-            android:src="@drawable/gallery_down"
+            android:text="选择"
+            android:textColor="#d6d6d6"
+            android:textSize="14dp" />
+
+        <ImageView
+            android:id="@+id/gallery_tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="5dp"
-             />
+            android:src="@drawable/gallery_down" />
     </LinearLayout>
 
     <Button
-        android:visibility="gone"
-        android:id="@+id/change"
-        android:layout_toLeftOf="@+id/commit"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="16dp"
-        android:minHeight="1dp"
-        android:minWidth="1dp"
-        android:paddingBottom="5dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="5dp"
-        android:text="切换"
-        android:textSize="14sp" />
-
-
-    <Button
-        android:visibility="gone"
         android:id="@+id/commit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -76,7 +57,8 @@
         android:paddingRight="10dp"
         android:paddingTop="5dp"
         android:text="确定"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:visibility="gone" />
 
 
 </RelativeLayout>

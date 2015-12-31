@@ -57,15 +57,8 @@ public class AlbumAdapter extends CursorAdapter {
     public void bindView(View view, Context context, Cursor cursor) {
         viewHolder = (ViewHolder) view.getTag();
         Album album = Album.valueOf(cursor);
-        Log.i("count", album.getCount());
-//        Log.i("fotoplace","album" album.getId().buildContentUri().toString());
-//        TextView textView = (TextView) view.findViewById(R.id.foldName);
-//        ImageView foldIcon = (ImageView) view.findViewById(R.id.foldIcon);
-//        TextView photoCount = (TextView) view.findViewById(R.id.photoCount);
         viewHolder.textView.setText(album.getDisplayName(context));
         viewHolder.photoCount.setText("( "+album.getCount()+" )");
-//        ImageLoader imageLoader = ImageLoader.getInstance();
-//        imageLoader.displayImage(album.buildContentUri().toString(), foldIcon);
     }
 
     static class ViewHolder{
