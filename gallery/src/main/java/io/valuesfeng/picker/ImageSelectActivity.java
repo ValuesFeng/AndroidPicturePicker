@@ -20,9 +20,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
-
 import java.util.ArrayList;
 
 import io.valuesfeng.picker.control.PictureCollection;
@@ -39,6 +36,7 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
     public static final String EXTRA_RESULT_SELECTION = BundleUtils.buildKey(ImageSelectActivity.class, "EXTRA_RESULT_SELECTION");
     public static final String EXTRA_SELECTION_SPEC = BundleUtils.buildKey(ImageSelectActivity.class, "EXTRA_SELECTION_SPEC");
     public static final String EXTRA_RESUME_LIST = BundleUtils.buildKey(ImageSelectActivity.class, "EXTRA_RESUME_LIST");
+//    public static final String EXTRA_ENGINE = BundleUtils.buildKey(ImageSelectActivity.class, "EXTRA_ENGINE");
 
     public static final String STATE_CAPTURE_PHOTO_URI = BundleUtils.buildKey(ImageSelectActivity.class, "STATE_CAPTURE_PHOTO_URI");
 
@@ -76,7 +74,6 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
         });
 
         mGridView = (GridView) findViewById(R.id.gridView);
-        mGridView.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(),false,true));
 
         mListView = (ListView) findViewById(R.id.listView);
         btnBack = (ImageView) findViewById(R.id.btn_back);

@@ -22,65 +22,71 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 
 
+import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
+
+import java.io.Serializable;
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import io.valuesfeng.picker.engine.LoadEngine;
 import io.valuesfeng.picker.model.SelectionSpec;
 
 /**
  */
 public final class Picker {
+    private static final String INITIALIZE_PICKER_ERROR = "Try to initialize Picker which had already been initialized before";
+    private static boolean hasInitPicker;
     private final WeakReference<Activity> mContext;
     private final WeakReference<Fragment> mFragment;
-    public static final String TAG = Picker.class.getSimpleName();
     private final Set<MimeType> mMimeType;
     private final SelectionSpec mSelectionSpec;
-    private int mActivityOrientation;
+    private LoadEngine engine;      //图片加载器 glide  imageloder picasso
     private List<Uri> mResumeList;
 
-    /**
-     */
-    Picker(Activity context, Set<MimeType> mimeType) {
-        mContext = new WeakReference<>(context);
-        mFragment = null;
-        mMimeType = mimeType;
-        mSelectionSpec = new SelectionSpec();
-        mResumeList = new ArrayList<>();
-        mActivityOrientation = -1;
-    }
-
-    Picker(Activity context) {
-        mContext = new WeakReference<>(context);
-        mFragment = null;
-        mMimeType = MimeType.allOf();
-        mSelectionSpec = new SelectionSpec();
-        mResumeList = new ArrayList<>();
-        mActivityOrientation = -1;
-    }
-
-    /**
-     */
     Picker(Activity activity, Fragment fragment, Set<MimeType> mimeType) {
         mContext = new WeakReference<>(activity);
-        mFragment = new WeakReference<>(fragment);
+        if (fragment != null)
+            mFragment = new WeakReference<>(fragment);
+        else
+            mFragment = null;
         mMimeType = mimeType;
         mSelectionSpec = new SelectionSpec();
         mResumeList = new ArrayList<>();
-        mActivityOrientation = -1;
     }
 
     Picker(Activity activity, Fragment fragment) {
         mContext = new WeakReference<>(activity);
-        mFragment = new WeakReference<>(fragment);
+        if (fragment != null)
+            mFragment = new WeakReference<>(fragment);
+        else
+            mFragment = null;
         mMimeType = MimeType.allOf();
         mSelectionSpec = new SelectionSpec();
         mResumeList = new ArrayList<>();
-        mActivityOrientation = -1;
     }
 
-    public Picker setEnableCamera(boolean mEnableCamera){
+
+    /**
+     * set iamge  load engine
+     *
+     * @param engine
+     * @return
+     */
+    public Picker setEngine(LoadEngine engine) {
+        this.engine = engine;
+        return this;
+    }
+
+    /**
+     * set the first item open camera
+     *
+     * @param mEnableCamera
+     * @return
+     */
+    public Picker setEnableCamera(boolean mEnableCamera) {
         mSelectionSpec.setmEnableCamera(mEnableCamera);
         return this;
     }
@@ -136,13 +142,18 @@ public final class Picker {
      * @param requestCode identity of the requester activity.
      */
     public void forResult(int requestCode) {
+        if (engine == null)
+            throw new ExceptionInInitializerError(LoadEngine.INITIALIZE_ENGINE_ERROR);
+
         Activity activity = getActivity();
         if (activity == null) {
             return; // cannot continue;
         }
         mSelectionSpec.setMimeTypeSet(mMimeType);
+        mSelectionSpec.setEngine(engine);
         Intent intent = new Intent(activity, ImageSelectActivity.class);
         intent.putExtra(ImageSelectActivity.EXTRA_SELECTION_SPEC, mSelectionSpec);
+//        intent.putExtra(ImageSelectActivity.EXTRA_ENGINE, (Serializable) engine);
         intent.putParcelableArrayListExtra(ImageSelectActivity.EXTRA_RESUME_LIST, (ArrayList<? extends android.os.Parcelable>) mResumeList);
 
         Fragment fragment = getFragment();
@@ -151,21 +162,34 @@ public final class Picker {
         } else {
             activity.startActivityForResult(intent, requestCode);
         }
+        hasInitPicker = false;
     }
 
     public static Picker from(Activity activity) {
-        return new Picker(activity);
+        if (hasInitPicker)
+            throw new ExceptionInInitializerError(INITIALIZE_PICKER_ERROR);
+        hasInitPicker = true;
+        return new Picker(activity, null);
     }
 
-    public static Picker from(Activity activity, Set<MimeType> mimeType){
-        return new Picker(activity, mimeType);
+    public static Picker from(Activity activity, Set<MimeType> mimeType) {
+        if (hasInitPicker)
+            throw new ExceptionInInitializerError(INITIALIZE_PICKER_ERROR);
+        hasInitPicker = true;
+        return new Picker(activity, null, mimeType);
     }
 
-    public static Picker from(Fragment fragment)  throws InterruptedException{
+    public static Picker from(Fragment fragment) {
+        if (hasInitPicker)
+            throw new ExceptionInInitializerError(INITIALIZE_PICKER_ERROR);
+        hasInitPicker = true;
         return new Picker(fragment.getActivity(), fragment);
     }
 
-    public static Picker from(Fragment fragment, Set<MimeType> mimeType)  throws InterruptedException{
+    public static Picker from(Fragment fragment, Set<MimeType> mimeType) {
+        if (hasInitPicker)
+            throw new ExceptionInInitializerError(INITIALIZE_PICKER_ERROR);
+        hasInitPicker = true;
         return new Picker(fragment.getActivity(), fragment, mimeType);
     }
 

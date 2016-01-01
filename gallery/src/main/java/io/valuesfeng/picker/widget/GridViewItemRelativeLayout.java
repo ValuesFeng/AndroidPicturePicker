@@ -46,27 +46,6 @@ public class GridViewItemRelativeLayout extends RelativeLayout {
     private Picture item;
     SelectedUriCollection mCollection;
 
-    private DisplayImageOptions optionsImage = new DisplayImageOptions
-            .Builder()
-            .showImageOnLoading(R.drawable.image_not_exist)
-            .showImageForEmptyUri(R.drawable.image_not_exist)
-            .showImageOnFail(R.drawable.image_not_exist)
-            .cacheInMemory(true)
-            .cacheOnDisk(true)
-            .considerExifParams(true)
-            .bitmapConfig(Bitmap.Config.RGB_565)
-            .imageScaleType(ImageScaleType.EXACTLY)
-            .build();
-    private DisplayImageOptions optionsCameraImage = new DisplayImageOptions
-            .Builder()
-            .showImageOnLoading(R.drawable.ic_camera)
-            .showImageForEmptyUri(R.drawable.ic_camera)
-            .showImageOnFail(R.drawable.ic_camera)
-            .cacheInMemory(true)
-            .cacheOnDisk(true)
-            .considerExifParams(true)
-            .build();
-
     public GridViewItemRelativeLayout(Context context) {
         this(context, null);
     }
@@ -130,8 +109,10 @@ public class GridViewItemRelativeLayout extends RelativeLayout {
 
     private void disPlay() {
         if (item.isCapture()) {
-            ImageLoader.getInstance().displayImage("drawable://" + R.drawable.ic_camera, imageView, optionsCameraImage);
+            mCollection.getEngine().displayImage(R.drawable.ic_camera,imageView);
+//            ImageLoader.getInstance().displayImage("drawable://" +, imageView, optionsCameraImage);
         } else {
+            mCollection.getEngine().displayImage(item.buildContentUri().toString(), imageView);
 //            if (AlbumHelper.getInstance(getContext()).getThumbnail().containsKey(item.getId())) {
 //                String thumbnailuri = AlbumHelper.getInstance(getContext()).getThumbnail().get(item.getId());
 //                File file = new File(thumbnailuri);
@@ -140,7 +121,7 @@ public class GridViewItemRelativeLayout extends RelativeLayout {
 //            } else {
 //                ImageLoader.getInstance().displayImage(item.buildContentUri().toString(), imageView, optionsImage);
 //            }
-            ImageLoader.getInstance().displayImage(item.buildContentUri().toString(), imageView, optionsImage);
+//            ImageLoader.getInstance().displayImage(item.buildContentUri().toString(), imageView, optionsImage);
         }
     }
 }

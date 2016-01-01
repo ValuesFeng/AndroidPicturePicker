@@ -26,6 +26,7 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import io.valuesfeng.picker.engine.LoadEngine;
 import io.valuesfeng.picker.model.SelectionSpec;
 import io.valuesfeng.picker.utils.BundleUtils;
 
@@ -106,6 +107,10 @@ public class SelectedUriCollection {
 
     public boolean isSingleChoose() {
         return mSpec.isSingleChoose();
+    }
+
+    public LoadEngine getEngine(){
+        return mSpec.getEngine();
     }
 
     public void setOnSelectionChange(OnSelectionChange onSelectionChange) {

@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 import io.valuesfeng.picker.MimeType;
+import io.valuesfeng.picker.engine.LoadEngine;
 import io.valuesfeng.picker.utils.ParcelUtils;
 
 /**
@@ -46,6 +47,7 @@ public final class SelectionSpec implements Parcelable {
     private long mMinPixels;       //最小size
     private long mMaxPixels;        //最大size
     private boolean mEnableCamera;//是否可用相机
+    private LoadEngine engine;      //图片加载器 glide  imageloder picasso
     private Set<MimeType> mMimeTypeSet;
 
     public SelectionSpec() {
@@ -62,7 +64,8 @@ public final class SelectionSpec implements Parcelable {
         mMinPixels = source.readLong();
         mMaxPixels = source.readLong();
         mEnableCamera = ParcelUtils.readBoolean(source);
-        List<MimeType> list = new ArrayList<MimeType>();
+        this.engine = source.readParcelable(LoadEngine.class.getClassLoader());
+        List<MimeType> list = new ArrayList<>();
         source.readList(list, MimeType.class.getClassLoader());
         mMimeTypeSet = EnumSet.copyOf(list);
     }
@@ -79,6 +82,7 @@ public final class SelectionSpec implements Parcelable {
         dest.writeLong(mMinPixels);
         dest.writeLong(mMaxPixels);
         ParcelUtils.writeBoolean(dest, mEnableCamera);
+        dest.writeParcelable(this.engine, 0);
         dest.writeList(new ArrayList<>(mMimeTypeSet));
     }
 
@@ -120,6 +124,14 @@ public final class SelectionSpec implements Parcelable {
 
     public long getMinPixels() {
         return mMinPixels;
+    }
+
+    public LoadEngine getEngine() {
+        return engine;
+    }
+
+    public void setEngine(LoadEngine engine) {
+        this.engine = engine;
     }
 
     public boolean isSingleChoose() {

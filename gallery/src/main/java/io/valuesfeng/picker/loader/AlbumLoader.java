@@ -34,6 +34,9 @@ import io.valuesfeng.picker.model.SelectionSpec;
  * @version 1.0.0
  * @hide
  * @since 2014/03/26
+ *  @Modification
+ *          add picture size charge
+ *              by valuesFeng
  */
 public class AlbumLoader extends CursorLoader {
     private static final String[] PROJECTION = {MediaStore.Images.Media.BUCKET_ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.Images.Media._ID, "count(bucket_id) as cou"};

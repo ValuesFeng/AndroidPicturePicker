@@ -7,9 +7,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 
+import com.nostra13.universalimageloader.core.ImageLoader;
+
 import java.util.List;
 
 import io.valuesfeng.picker.Picker;
+import io.valuesfeng.picker.engine.glide.GlideEngine;
+import io.valuesfeng.picker.engine.imageloader.ImageLoaderEngine;
 import io.valuesfeng.picker.utils.PicturePickerUtils;
 
 public class MainActivity extends FragmentActivity {
@@ -34,6 +38,9 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void onClickButton(View view) {
-        Picker.from(this).count(0,3).setEnableCamera(true).singleChoice().forResult(1);
+        Picker.from(this).count(0,3)
+                .setEnableCamera(true)
+                .setEngine(new GlideEngine(R.mipmap.ic_launcher,R.mipmap.ic_launcher))
+                .forResult(1);
     }
 }

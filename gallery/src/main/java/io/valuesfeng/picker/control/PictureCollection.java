@@ -49,12 +49,10 @@ public class PictureCollection implements LoaderManager.LoaderCallbacks<Cursor> 
         if (context == null) {
             return null;
         }
-
         Album album = args.getParcelable(ARGS_ALBUM);
         if (album == null) {
             return null;
         }
-
         return PictureLoader.newInstance(context, album, selectionSpec);
     }
 
