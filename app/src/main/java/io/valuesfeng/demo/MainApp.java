@@ -1,4 +1,4 @@
-package cc.fotoplace.fotoplacegallery;
+package io.valuesfeng.demo;
 
 import android.app.Application;
 import android.graphics.Bitmap;

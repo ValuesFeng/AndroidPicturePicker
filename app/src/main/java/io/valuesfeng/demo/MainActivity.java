@@ -1,4 +1,4 @@
-package cc.fotoplace.fotoplacegallery;
+package io.valuesfeng.demo;
 
 import android.content.Intent;
 import android.net.Uri;
