@@ -34,6 +34,6 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void onClickButton(View view) {
-        Picker.from(this).count(0,1000).setEnableCamera(true).forResult(1);
+        Picker.from(this).count(0,3).setEnableCamera(true).singleChoice().forResult(1);
     }
 }

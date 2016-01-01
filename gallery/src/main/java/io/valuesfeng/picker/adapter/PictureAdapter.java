@@ -34,13 +34,11 @@ import io.valuesfeng.picker.widget.GridViewItemRelativeLayout;
  */
 public class PictureAdapter extends CursorAdapter {
     LayoutInflater mInflater;
-    Context mContext;
     SelectedUriCollection mCollection;
 
     public PictureAdapter(Context context, Cursor c, SelectedUriCollection mCollection) {
         super(context, c, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         mInflater = LayoutInflater.from(context);
-        mContext = context;
         this.mCollection = mCollection;
     }
 

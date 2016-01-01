@@ -64,11 +64,20 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
         mCapturePhotoUriHolder = savedInstanceState != null ? savedInstanceState.getString(STATE_CAPTURE_PHOTO_URI) : "";
         selectionSpec = getIntent().getParcelableExtra(ImageSelectActivity.EXTRA_SELECTION_SPEC);
         mMediaStoreCompat = new MediaStoreCompat(this, new Handler(Looper.getMainLooper()));
+
         mCollection.onCreate(savedInstanceState);
         mCollection.prepareSelectionSpec(selectionSpec);
         mCollection.setDefaultSelection(getIntent().<Uri>getParcelableArrayListExtra(EXTRA_RESUME_LIST));
+        mCollection.setOnSelectionChange(new SelectedUriCollection.OnSelectionChange() {
+            @Override
+            public void onChange(int maxCount, int selectCount) {
+                commit.setText("确定("+selectCount+"/"+maxCount+")");
+            }
+        });
+
         mGridView = (GridView) findViewById(R.id.gridView);
         mGridView.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(),false,true));
+
         mListView = (ListView) findViewById(R.id.listView);
         btnBack = (ImageView) findViewById(R.id.btn_back);
         mListViewGroup = findViewById(R.id.listViewParent);
@@ -77,12 +86,18 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
         galleryTip = (ImageView) findViewById(R.id.gallery_tip);
         LinearLayout selectFold = (LinearLayout) findViewById(R.id.selectFold);
         commit = (Button) findViewById(R.id.commit);
+        commit.setText("确定(0/"+selectionSpec.getMaxSelectable()+")");
+        if (selectionSpec.isSingleChoose()){
+            commit.setVisibility(View.GONE);
+        }
         mFoldName.setText("最近图片");
         selectFold.setOnClickListener(mOnClickFoldName);
+
         albumCollection.onCreate(ImageSelectActivity.this,this,selectionSpec,mListView);
         albumCollection.loadAlbums();
         mPhotoCollection.onCreate(ImageSelectActivity.this,mGridView,mCollection,selectionSpec);
         mPhotoCollection.loadAllPhoto();
+
         commit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

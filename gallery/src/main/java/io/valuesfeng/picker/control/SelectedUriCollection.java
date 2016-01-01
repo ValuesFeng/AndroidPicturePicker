@@ -37,6 +37,7 @@ public class SelectedUriCollection {
     private final WeakReference<Context> mContext;
     private Set<Uri> mUris;
     private SelectionSpec mSpec;
+    private OnSelectionChange onSelectionChange;
 
     public SelectedUriCollection(Context context) {
         mContext = new WeakReference<>(context);
@@ -64,10 +65,14 @@ public class SelectedUriCollection {
     }
 
     public boolean add(Uri uri) {
+        if (onSelectionChange!=null)
+            onSelectionChange.onChange(maxCount(),count()+1);
         return mUris.add(uri);
     }
 
     public boolean remove(Uri uri) {
+        if (onSelectionChange!=null)
+            onSelectionChange.onChange(maxCount(),count()-1);
         return mUris.remove(uri);
     }
 
@@ -103,4 +108,11 @@ public class SelectedUriCollection {
         return mSpec.isSingleChoose();
     }
 
+    public void setOnSelectionChange(OnSelectionChange onSelectionChange) {
+        this.onSelectionChange = onSelectionChange;
+    }
+
+    public interface OnSelectionChange{
+        void onChange(int maxCount,int selectCount);
+    }
 }
