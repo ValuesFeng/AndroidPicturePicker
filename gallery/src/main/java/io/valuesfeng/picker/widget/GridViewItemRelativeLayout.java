@@ -109,7 +109,7 @@ public class GridViewItemRelativeLayout extends RelativeLayout {
 
     private void disPlay() {
         if (item.isCapture()) {
-            mCollection.getEngine().displayImage(R.drawable.ic_camera,imageView);
+            mCollection.getEngine().displayCameraItem(imageView);
 //            ImageLoader.getInstance().displayImage("drawable://" +, imageView, optionsCameraImage);
         } else {
             mCollection.getEngine().displayImage(item.buildContentUri().toString(), imageView);

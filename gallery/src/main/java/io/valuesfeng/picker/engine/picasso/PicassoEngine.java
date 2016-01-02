@@ -2,6 +2,7 @@ package io.valuesfeng.picker.engine.picasso;
 
 import android.content.Context;
 import android.os.Parcel;
+import android.os.Parcelable;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -24,21 +25,25 @@ import io.valuesfeng.picker.engine.LoadEngine;
 public class PicassoEngine implements LoadEngine {
 
     private int img_loading;
-    private int camera_loading;
+    private int img_camera;
 
     public PicassoEngine() {
         this(0, 0);
     }
 
-    public PicassoEngine(int camera_loading, int img_loading) {
+    public PicassoEngine(int img_loading) {
+        this(img_loading,0);
+    }
+
+    public PicassoEngine(int img_camera, int img_loading) {
         if (img_loading == 0)
             this.img_loading = R.drawable.image_not_exist;
         else
             this.img_loading = img_loading;
-        if (camera_loading == 0)
-            this.camera_loading = R.drawable.ic_camera;
+        if (img_camera == 0)
+            this.img_camera = R.drawable.ic_camera;
         else
-            this.camera_loading = camera_loading;
+            this.img_camera = img_camera;
     }
 
     @Override
@@ -48,20 +53,16 @@ public class PicassoEngine implements LoadEngine {
                 .load(path)
                 .placeholder(img_loading)
                 .error(img_loading)
-                .resize(imageView.getWidth(), imageView.getHeight())
-                .centerCrop()
                 .into(imageView);
     }
 
     @Override
-    public void displayImage(int res, ImageView imageView) {
+    public void displayCameraItem(ImageView imageView) {
         chargeInit(imageView.getContext());
         Picasso.with(imageView.getContext())
-                .load(res)
-                .placeholder(camera_loading)
-                .error(camera_loading)
-                .resize(imageView.getWidth(), imageView.getHeight())
-                .centerCrop()
+                .load(img_camera)
+                .placeholder(img_camera)
+                .error(img_camera)
                 .into(imageView);
     }
 
@@ -85,12 +86,12 @@ public class PicassoEngine implements LoadEngine {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.img_loading);
-        dest.writeInt(this.camera_loading);
+        dest.writeInt(this.img_camera);
     }
 
     protected PicassoEngine(Parcel in) {
         this.img_loading = in.readInt();
-        this.camera_loading = in.readInt();
+        this.img_camera = in.readInt();
     }
 
     public static final Creator<PicassoEngine> CREATOR = new Creator<PicassoEngine>() {

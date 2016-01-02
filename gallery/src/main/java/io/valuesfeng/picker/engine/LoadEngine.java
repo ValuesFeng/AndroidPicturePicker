@@ -17,10 +17,12 @@ import java.io.Serializable;
  * 16/1/1          valuesfeng              1.0                    1.0
  * Why & What is modified:
  */
-public interface LoadEngine extends Parcelable{
+public interface LoadEngine extends Parcelable {
     String INITIALIZE_ENGINE_ERROR = "initialize error,image load engine can not be null";
 
-    void displayImage(int res, ImageView imageView);
+    void displayCameraItem(ImageView imageView);
+
     void displayImage(String path, ImageView imageView);
+
     void pauseOnScroll(GridView view);
 }

@@ -2,6 +2,7 @@ package io.valuesfeng.picker.engine.glide;
 
 import android.content.Context;
 import android.os.Parcel;
+import android.util.Log;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -24,25 +25,30 @@ import io.valuesfeng.picker.engine.LoadEngine;
 public class GlideEngine implements LoadEngine {
 
     private int img_loading;
-    private int camera_loading;
+    private int img_camera;
 
     public GlideEngine() {
         this(0, 0);
     }
 
-    public GlideEngine(int camera_loading, int img_loading) {
+    public GlideEngine(int img_loading) {
+        this(img_loading, 0);
+    }
+
+    public GlideEngine(int img_camera, int img_loading) {
         if (img_loading == 0)
             this.img_loading = R.drawable.image_not_exist;
         else
             this.img_loading = img_loading;
-        if (camera_loading == 0)
-            this.camera_loading = R.drawable.ic_camera;
+        if (img_camera == 0)
+            this.img_camera = R.drawable.ic_camera;
         else
-            this.camera_loading = camera_loading;
+            this.img_camera = img_camera;
     }
 
     @Override
     public void displayImage(String path, ImageView imageView) {
+        Log.i("picture", path);
         chargeInit(imageView.getContext());
         Glide.with(imageView.getContext())
                 .load(path)
@@ -54,22 +60,23 @@ public class GlideEngine implements LoadEngine {
     }
 
     @Override
-    public void displayImage(int res, ImageView imageView) {
+    public void displayCameraItem(ImageView imageView) {
         chargeInit(imageView.getContext());
         Glide.with(imageView.getContext())
-                .load(res)
+                .load(img_camera)
                 .centerCrop()
-                .error(camera_loading)
-                .placeholder(camera_loading)
+                .error(img_camera)
+                .placeholder(img_camera)
                 .crossFade()
                 .into(imageView);
     }
 
-    private void chargeInit(Context context){
+    private void chargeInit(Context context) {
         if (Glide.get(context) == null) {
             throw new ExceptionInInitializerError(INITIALIZE_ENGINE_ERROR);
         }
     }
+
     @Override
     public void pauseOnScroll(GridView view) {
 
@@ -83,12 +90,12 @@ public class GlideEngine implements LoadEngine {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.img_loading);
-        dest.writeInt(this.camera_loading);
+        dest.writeInt(this.img_camera);
     }
 
     protected GlideEngine(Parcel in) {
         this.img_loading = in.readInt();
-        this.camera_loading = in.readInt();
+        this.img_camera = in.readInt();
     }
 
     public static final Creator<GlideEngine> CREATOR = new Creator<GlideEngine>() {

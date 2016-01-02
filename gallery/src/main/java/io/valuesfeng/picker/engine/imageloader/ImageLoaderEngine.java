@@ -27,7 +27,7 @@ import io.valuesfeng.picker.engine.LoadEngine;
 public class ImageLoaderEngine implements LoadEngine {
 
     private int img_loading;
-    private int camera_loading;
+    private int img_camera;
     private DisplayImageOptions displayOptions;
     private DisplayImageOptions cameraOptions;
 
@@ -36,7 +36,11 @@ public class ImageLoaderEngine implements LoadEngine {
         this(0, 0);
     }
 
-    public ImageLoaderEngine(int img_loading, int camera_loading) {
+    public ImageLoaderEngine(int img_loading) {
+        this(img_loading,0);
+    }
+
+    public ImageLoaderEngine(int img_loading, int img_camera) {
         if (ImageLoader.getInstance() == null) {
             throw new ExceptionInInitializerError(INITIALIZE_ENGINE_ERROR);
         }
@@ -44,10 +48,10 @@ public class ImageLoaderEngine implements LoadEngine {
             this.img_loading = R.drawable.image_not_exist;
         else
             this.img_loading = img_loading;
-        if (camera_loading == 0)
-            this.camera_loading = R.drawable.ic_camera;
+        if (img_camera == 0)
+            this.img_camera = R.drawable.ic_camera;
         else
-            this.camera_loading = camera_loading;
+            this.img_camera = img_camera;
     }
 
     @Override
@@ -56,8 +60,8 @@ public class ImageLoaderEngine implements LoadEngine {
     }
 
     @Override
-    public void displayImage(int res, ImageView imageView) {
-        ImageLoader.getInstance().displayImage("drawable://" + res, imageView, getCameraOptions());
+    public void displayCameraItem(ImageView imageView) {
+        ImageLoader.getInstance().displayImage("drawable://" + img_camera, imageView, getCameraOptions());
     }
 
     @Override
@@ -88,9 +92,9 @@ public class ImageLoaderEngine implements LoadEngine {
         if (cameraOptions == null)
             cameraOptions = new DisplayImageOptions
                     .Builder()
-                    .showImageOnLoading(camera_loading)
-                    .showImageForEmptyUri(camera_loading)
-                    .showImageOnFail(camera_loading)
+                    .showImageOnLoading(img_camera)
+                    .showImageForEmptyUri(img_camera)
+                    .showImageOnFail(img_camera)
                     .cacheInMemory(true)
                     .cacheOnDisk(true)
                     .considerExifParams(true)
@@ -106,12 +110,12 @@ public class ImageLoaderEngine implements LoadEngine {
     @Override
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(this.img_loading);
-        dest.writeInt(this.camera_loading);
+        dest.writeInt(this.img_camera);
     }
 
     protected ImageLoaderEngine(Parcel in) {
         this.img_loading = in.readInt();
-        this.camera_loading = in.readInt();
+        this.img_camera = in.readInt();
     }
 
     public static final Creator<ImageLoaderEngine> CREATOR = new Creator<ImageLoaderEngine>() {
