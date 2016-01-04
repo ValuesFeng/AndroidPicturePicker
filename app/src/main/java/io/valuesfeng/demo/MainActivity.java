@@ -14,6 +14,8 @@ import java.util.List;
 
 import io.valuesfeng.picker.Picker;
 import io.valuesfeng.picker.engine.LoadEngine;
+import io.valuesfeng.picker.engine.glide.GlideEngine;
+import io.valuesfeng.picker.engine.imageloader.ImageLoaderEngine;
 import io.valuesfeng.picker.engine.picasso.PicassoEngine;
 import io.valuesfeng.picker.utils.PicturePickerUtils;
 

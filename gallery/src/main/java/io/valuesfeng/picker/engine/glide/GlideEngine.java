@@ -1,6 +1,7 @@
 package io.valuesfeng.picker.engine.glide;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.util.Log;
 import android.widget.GridView;
@@ -48,14 +49,13 @@ public class GlideEngine implements LoadEngine {
 
     @Override
     public void displayImage(String path, ImageView imageView) {
-        Log.i("picture", path);
         chargeInit(imageView.getContext());
         Glide.with(imageView.getContext())
                 .load(path)
                 .centerCrop()
                 .error(img_loading)
                 .placeholder(img_loading)
-                .crossFade()
+                .dontAnimate()
                 .into(imageView);
     }
 
@@ -67,7 +67,7 @@ public class GlideEngine implements LoadEngine {
                 .centerCrop()
                 .error(img_camera)
                 .placeholder(img_camera)
-                .crossFade()
+                .dontAnimate()
                 .into(imageView);
     }
 

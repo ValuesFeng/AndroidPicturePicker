@@ -65,6 +65,8 @@ public class GridViewItemRelativeLayout extends RelativeLayout {
 
     public void setImageView(ImageView imageView, ImageView imageCheck, SelectedUriCollection mCollection) {
         this.imageView = imageView;
+        this.imageView.setMinimumWidth(getWidth());
+        this.imageView.setMinimumHeight(getHeight());
         this.imageCheck = imageCheck;
         this.mCollection = mCollection;
         this.imageView.setOnClickListener(new OnClickListener() {

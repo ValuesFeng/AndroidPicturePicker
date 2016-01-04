@@ -1,8 +1,10 @@
 package io.valuesfeng.picker.engine.picasso;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
+import android.widget.AbsListView;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -51,6 +53,8 @@ public class PicassoEngine implements LoadEngine {
         chargeInit(imageView.getContext());
         Picasso.with(imageView.getContext())
                 .load(path)
+                .centerCrop()
+                .fit()
                 .placeholder(img_loading)
                 .error(img_loading)
                 .into(imageView);
@@ -61,6 +65,8 @@ public class PicassoEngine implements LoadEngine {
         chargeInit(imageView.getContext());
         Picasso.with(imageView.getContext())
                 .load(img_camera)
+                .centerCrop()
+                .fit()
                 .placeholder(img_camera)
                 .error(img_camera)
                 .into(imageView);
@@ -68,7 +74,22 @@ public class PicassoEngine implements LoadEngine {
 
     @Override
     public void pauseOnScroll(GridView view) {
+        view.setOnScrollListener(new AbsListView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState) {
+                final Picasso picasso = Picasso.with(view.getContext());
+                if (scrollState == SCROLL_STATE_IDLE || scrollState == SCROLL_STATE_TOUCH_SCROLL) {
+                    picasso.resumeTag(view.getContext());
+                } else {
+                    picasso.pauseTag(view.getContext());
+                }
+            }
 
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
     }
 
 
