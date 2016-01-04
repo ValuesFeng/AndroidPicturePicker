@@ -17,6 +17,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,6 +41,7 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
 
     public static final String STATE_CAPTURE_PHOTO_URI = BundleUtils.buildKey(ImageSelectActivity.class, "STATE_CAPTURE_PHOTO_URI");
 
+    private RelativeLayout rlTop;
     private TextView mFoldName;
     private View mListViewGroup;
     private ListView mListView;
