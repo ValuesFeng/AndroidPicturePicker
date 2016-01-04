@@ -49,9 +49,11 @@ public class Picture implements Parcelable {
     public static final long ITEM_ID_CAPTURE = -1;
     public static final String ITEM_DISPLAY_NAME_CAPTURE = "Capture";
     private final long mId;
+    private String mDisplayName;
 
-    /* package */ Picture(long id) {
+    /* package */ Picture(long id,String displayName) {
         mId = id;
+        mDisplayName = displayName;
     }
 
     /* package */ Picture(Parcel source) {
@@ -59,7 +61,8 @@ public class Picture implements Parcelable {
     }
 
     public static Picture valueOf(Cursor cursor) {
-        return new Picture(cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID)));
+//        return new Picture(cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID)));
+        return new Picture(cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID)),cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DISPLAY_NAME)));
     }
 
     @Override
@@ -86,7 +89,6 @@ public class Picture implements Parcelable {
         options.inPreferredConfig = Bitmap.Config.ARGB_8888;
         ContentResolver contentResolver = context.getContentResolver();
         return MediaStore.Images.Thumbnails.getThumbnail(contentResolver, mId, MediaStore.Images.Thumbnails.MICRO_KIND, options);
-
     }
 
     public boolean isCapture() {

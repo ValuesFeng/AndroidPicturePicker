@@ -26,6 +26,7 @@ import android.support.v4.content.CursorLoader;
 import io.valuesfeng.picker.model.Album;
 import io.valuesfeng.picker.model.Picture;
 import io.valuesfeng.picker.model.SelectionSpec;
+import io.valuesfeng.picker.utils.MediaStoreCompat;
 
 
 /**
@@ -61,7 +62,7 @@ public class PictureLoader extends CursorLoader {
     @Override
     public Cursor loadInBackground() {
         Cursor result = super.loadInBackground();
-        if (!mEnableCapture) {
+        if (!mEnableCapture || !MediaStoreCompat.hasCameraFeature(getContext())) {
             return result;
         }
         MatrixCursor dummy = new MatrixCursor(PROJECTION);

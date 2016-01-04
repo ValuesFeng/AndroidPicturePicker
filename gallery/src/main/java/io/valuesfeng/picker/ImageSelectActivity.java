@@ -101,7 +101,7 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
             @Override
             public void onClick(View v) {
                 if (mCollection.isEmpty()) {
-                    Toast.makeText(getApplicationContext(),"您还未选择图片",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(),"未选择图片",Toast.LENGTH_LONG).show();
                 }else{
                     setResult();
                 }
@@ -218,10 +218,9 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
         if (mCollection.isEmpty()) {
             setResult(Activity.RESULT_CANCELED);
             super.onBackPressed();
-            return;
         }
-        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.l_confirm_dialog_title, R.string.l_confirm_dialog_message);
-        dialog.show(getSupportFragmentManager(), ConfirmationDialogFragment.TAG);
+//        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.l_confirm_dialog_title, R.string.l_confirm_dialog_message);
+//        dialog.show(getSupportFragmentManager(), ConfirmationDialogFragment.TAG);
     }
     /**
      * 选择相机

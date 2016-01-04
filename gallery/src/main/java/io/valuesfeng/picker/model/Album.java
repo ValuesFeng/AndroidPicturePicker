@@ -29,9 +29,9 @@ import io.valuesfeng.picker.R;
 
 /**
  * @author KeithYokoma
- * @since 2014/03/20
  * @version 1.0.0
  * @hide
+ * @since 2014/03/20
  */
 public class Album implements Parcelable {
     public static final Creator<Album> CREATOR = new Creator<Album>() {
@@ -58,11 +58,11 @@ public class Album implements Parcelable {
 
     /* package */
 
-    public Album(String id, long coverId, String albumName,String count) {
+    public Album(String id, long coverId, String albumName, String count) {
         mId = id;
         mCoverId = coverId;
         mDisplayName = albumName;
-        mCount=count;
+        mCount = count;
     }
 
     /* package */ Album(Parcel source) {
@@ -74,6 +74,7 @@ public class Album implements Parcelable {
 
     /**
      * This method is not responsible for managing cursor resource, such as close, iterate, and so on.
+     *
      * @param cursor to be converted.
      */
     public static Album valueOf(Cursor cursor) {
@@ -81,7 +82,7 @@ public class Album implements Parcelable {
                 cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.BUCKET_ID)),
                 cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID)),
                 cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.BUCKET_DISPLAY_NAME)),
-                cursor.getLong(3)+""
+                cursor.getLong(3) + ""
         );
     }
 
@@ -121,9 +122,11 @@ public class Album implements Parcelable {
         }
         return mDisplayName;
     }
+
     public Uri buildContentUri() {
         return ContentUris.withAppendedId(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, mCoverId);
     }
+
     public boolean isAll() {
         return ALBUM_ID_ALL.equals(mId);
     }

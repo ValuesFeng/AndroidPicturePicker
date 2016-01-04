@@ -49,7 +49,6 @@ public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor>, A
     private OnDirectorySelectListener directorySelectListener;
     private int mCurrentSelection;
     private SelectionSpec selectionSpec;
-    private ListView listView;
     private AlbumAdapter albumAdapter;
 
     @Override
@@ -77,7 +76,6 @@ public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor>, A
                     if (directorySelectListener != null) {
                         directorySelectListener.onReset(currentAlbum);
                     }
-
                 }
             }
         });
@@ -97,7 +95,6 @@ public class AlbumCollection implements LoaderManager.LoaderCallbacks<Cursor>, A
         mLoaderManager = activity.getSupportLoaderManager();
         this.directorySelectListener = directorySelectListener;
         this.selectionSpec = selectionSpec;
-        this.listView = listView;
         albumAdapter = new AlbumAdapter(activity, null);
         listView.setAdapter(albumAdapter);
         listView.setOnItemClickListener(this);

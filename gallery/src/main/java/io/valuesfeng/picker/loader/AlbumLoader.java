@@ -25,6 +25,7 @@ import android.support.v4.content.CursorLoader;
 
 import io.valuesfeng.picker.model.Album;
 import io.valuesfeng.picker.model.SelectionSpec;
+import io.valuesfeng.picker.utils.PhotoMetadataUtils;
 
 
 /**
@@ -33,10 +34,9 @@ import io.valuesfeng.picker.model.SelectionSpec;
  * @author KeithYokoma
  * @version 1.0.0
  * @hide
+ * @Modification add picture size charge
+ * by valuesFeng
  * @since 2014/03/26
- *  @Modification
- *          add picture size charge
- *              by valuesFeng
  */
 public class AlbumLoader extends CursorLoader {
     private static final String[] PROJECTION = {MediaStore.Images.Media.BUCKET_ID, MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.Images.Media._ID, "count(bucket_id) as cou"};
@@ -46,10 +46,10 @@ public class AlbumLoader extends CursorLoader {
     private static final String IS_LARGE_SIZE = " _size > ? or _size is null";
 
     public static CursorLoader newInstance(Context context, SelectionSpec selectionSpec) {
-        return new AlbumLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION, IS_LARGE_SIZE + BUCKET_GROUP_BY, new String[]{selectionSpec.getMinPixels() + ""}, BUCKET_ORDER_BY);
+        return new AlbumLoader(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, PROJECTION, IS_LARGE_SIZE + BUCKET_GROUP_BY, new String[]{selectionSpec.getMinPixels() + ""}, BUCKET_ORDER_BY,selectionSpec );
     }
 
-    private AlbumLoader(Context context, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {
+    private AlbumLoader(Context context, Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder, SelectionSpec selectionSpec) {
         super(context, uri, projection, selection, selectionArgs, sortOrder);
     }
 

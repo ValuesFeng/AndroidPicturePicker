@@ -12,6 +12,7 @@ import android.widget.ImageView;
 
 import java.util.List;
 
+import io.valuesfeng.picker.MimeType;
 import io.valuesfeng.picker.Picker;
 import io.valuesfeng.picker.engine.LoadEngine;
 import io.valuesfeng.picker.engine.glide.GlideEngine;
@@ -42,7 +43,7 @@ public class MainActivity extends FragmentActivity {
 
     //    Log.i("picture", path);
     public void onClickButton(View view) {
-        Picker.from(this).count(0, 3)
+        Picker.from(this,MimeType.of(MimeType.JPEG,MimeType.PNG)).count(0, 3)
                 .setEnableCamera(true)
                 .setEngine(new PicassoEngine())
 //                .setEngine(new ImageLoaderEngine())
