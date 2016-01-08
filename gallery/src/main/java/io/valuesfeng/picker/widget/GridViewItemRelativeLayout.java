@@ -72,16 +72,16 @@ public class GridViewItemRelativeLayout extends RelativeLayout {
         this.imageView.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (GridViewItemRelativeLayout.this.mCollection.isCountOver()
+                        && !GridViewItemRelativeLayout.this.mCollection.isSelected(item.buildContentUri())) {
+                    return;
+                }
                 if (item.isCapture()) {
                     ((ImageSelectActivity) getContext()).showCameraAction();
                     return;
                 } else if (GridViewItemRelativeLayout.this.mCollection.isSingleChoose()) {
                     GridViewItemRelativeLayout.this.mCollection.add(item.buildContentUri());
                     ((ImageSelectActivity) getContext()).setResult();
-                    return;
-                }
-                if (GridViewItemRelativeLayout.this.mCollection.isCountOver()
-                        && !GridViewItemRelativeLayout.this.mCollection.isSelected(item.buildContentUri())) {
                     return;
                 }
                 if (GridViewItemRelativeLayout.this.mCollection.isSelected(item.buildContentUri())) {
