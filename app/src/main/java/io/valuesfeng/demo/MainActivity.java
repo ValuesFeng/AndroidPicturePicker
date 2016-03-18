@@ -64,7 +64,7 @@ public class MainActivity extends FragmentActivity {
         }
 
         @Override
-        public void pauseOnScroll(GridView view) {
+        public void scrolling(GridView view) {
 
         }
 

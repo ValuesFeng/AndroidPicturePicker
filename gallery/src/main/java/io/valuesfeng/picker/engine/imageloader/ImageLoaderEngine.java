@@ -65,7 +65,7 @@ public class ImageLoaderEngine implements LoadEngine {
     }
 
     @Override
-    public void pauseOnScroll(GridView view) {
+    public void scrolling(GridView view) {
         view.setOnScrollListener(new PauseOnScrollListener(ImageLoader.getInstance(), false, true));
     }
 

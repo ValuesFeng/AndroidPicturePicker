@@ -78,7 +78,7 @@ public class GlideEngine implements LoadEngine {
     }
 
     @Override
-    public void pauseOnScroll(GridView view) {
+    public void scrolling(GridView view) {
 
     }
 

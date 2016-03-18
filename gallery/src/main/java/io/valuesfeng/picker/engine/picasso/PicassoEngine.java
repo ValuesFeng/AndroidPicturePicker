@@ -73,7 +73,7 @@ public class PicassoEngine implements LoadEngine {
     }
 
     @Override
-    public void pauseOnScroll(GridView view) {
+    public void scrolling(GridView view) {
         view.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {

@@ -24,5 +24,5 @@ public interface LoadEngine extends Parcelable {
 
     void displayImage(String path, ImageView imageView);
 
-    void pauseOnScroll(GridView view);
+    void scrolling(GridView view);
 }
