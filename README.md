@@ -24,7 +24,7 @@ public void onClickButton(View view) {
                 .forResult(REQUEST_CODE_CHOOSE);
     }
 ```    
-You can use different Image Loader, Picker provide 3 Loader Engine:    
+You can use different Image Loader, Picker provide 3 default Loader Engine:
 1.GlideEngine    
 2.PicassoEngine    
 3.ImageLoaderEngine    
