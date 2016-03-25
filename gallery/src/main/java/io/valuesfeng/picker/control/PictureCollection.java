@@ -79,7 +79,7 @@ public class PictureCollection implements LoaderManager.LoaderCallbacks<Cursor> 
         mLoaderManager = context.getSupportLoaderManager();
         this.selectionSpec = selectionSpec;
         albumPhotoAdapter = new PictureAdapter(context, null, mCollection);
-        mCollection.getEngine().pauseOnScroll(gridView);
+        mCollection.getEngine().scrolling(gridView);
         gridView.setAdapter(albumPhotoAdapter);
     }
 

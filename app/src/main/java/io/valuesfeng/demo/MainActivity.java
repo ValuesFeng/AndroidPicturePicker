@@ -7,6 +7,7 @@ import android.os.Parcel;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewConfiguration;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -41,13 +42,12 @@ public class MainActivity extends FragmentActivity {
         }
     }
 
-    //    Log.i("picture", path);
     public void onClickButton(View view) {
         Picker.from(this,MimeType.of(MimeType.JPEG,MimeType.PNG)).count(0, 3)
                 .setEnableCamera(true)
-                .setEngine(new PicassoEngine())
+//                .setEngine(new PicassoEngine())
 //                .setEngine(new ImageLoaderEngine())
-//                .setEngine(new GlideEngine())
+                .setEngine(new GlideEngine())
 //                .setEngine(new CustomEngine())
                 .forResult(1);
     }
