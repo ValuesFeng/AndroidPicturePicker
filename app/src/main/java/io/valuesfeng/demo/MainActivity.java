@@ -40,11 +40,10 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void onClickButton(View view) {
-        Picker.from(this,MimeType.of(MimeType.JPEG,MimeType.PNG))
+        Picker.from(this)
                 .count(3)
                 .enableCamera(true)
                 .setEngine(new GlideEngine())
-                .quality(30000, Integer.MAX_VALUE)  // minimum = 30000px, max = Integer.MAX_VALUEpx, so 30000px <= count <= Integer.MAX_VALUEpx;
 //                .setEngine(new PicassoEngine())
 //                .setEngine(new ImageLoaderEngine())
 //                .setEngine(new CustomEngine())
@@ -77,6 +76,7 @@ public class MainActivity extends FragmentActivity {
         }
 
         public CustomEngine() {
+
         }
 
         protected CustomEngine(Parcel in) {

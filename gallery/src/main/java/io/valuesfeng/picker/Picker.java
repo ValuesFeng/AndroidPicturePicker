@@ -35,6 +35,10 @@ import io.valuesfeng.picker.engine.LoadEngine;
 import io.valuesfeng.picker.model.SelectionSpec;
 
 /**
+ *
+ * thanks for:
+ *
+ * https://github.com/nohana/Laevatein
  */
 public final class Picker {
     private static final String INITIALIZE_PICKER_ERROR = "Try to initialize Picker which had already been initialized before";
