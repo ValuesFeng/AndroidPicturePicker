@@ -1,4 +1,4 @@
-package io.valuesfeng.picker.engine.imageloader;
+package io.valuesfeng.picker.engine;
 
 import android.graphics.Bitmap;
 import android.os.Parcel;
@@ -11,7 +11,6 @@ import com.nostra13.universalimageloader.core.assist.ImageScaleType;
 import com.nostra13.universalimageloader.core.listener.PauseOnScrollListener;
 
 import io.valuesfeng.picker.R;
-import io.valuesfeng.picker.engine.LoadEngine;
 
 /**
  * Author:    valuesfeng

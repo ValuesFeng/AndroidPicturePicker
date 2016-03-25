@@ -7,7 +7,6 @@ import android.os.Parcel;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewConfiguration;
 import android.widget.GridView;
 import android.widget.ImageView;
 
@@ -16,9 +15,7 @@ import java.util.List;
 import io.valuesfeng.picker.MimeType;
 import io.valuesfeng.picker.Picker;
 import io.valuesfeng.picker.engine.LoadEngine;
-import io.valuesfeng.picker.engine.glide.GlideEngine;
-import io.valuesfeng.picker.engine.imageloader.ImageLoaderEngine;
-import io.valuesfeng.picker.engine.picasso.PicassoEngine;
+import io.valuesfeng.picker.engine.GlideEngine;
 import io.valuesfeng.picker.utils.PicturePickerUtils;
 
 public class MainActivity extends FragmentActivity {
@@ -43,13 +40,15 @@ public class MainActivity extends FragmentActivity {
     }
 
     public void onClickButton(View view) {
-        Picker.from(this,MimeType.of(MimeType.JPEG,MimeType.PNG)).count(0, 3)
-                .setEnableCamera(true)
+        Picker.from(this,MimeType.of(MimeType.JPEG,MimeType.PNG))
+                .count(3)
+                .enableCamera(true)
+                .setEngine(new GlideEngine())
+                .quality(30000, Integer.MAX_VALUE)  // minimum = 30000px, max = Integer.MAX_VALUEpx, so 30000px <= count <= Integer.MAX_VALUEpx;
 //                .setEngine(new PicassoEngine())
 //                .setEngine(new ImageLoaderEngine())
-                .setEngine(new GlideEngine())
 //                .setEngine(new CustomEngine())
-                .forResult(1);
+                .forResult(REQUEST_CODE_CHOOSE);
     }
 
     static class CustomEngine implements LoadEngine {

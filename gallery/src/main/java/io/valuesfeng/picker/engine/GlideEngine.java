@@ -1,16 +1,13 @@
-package io.valuesfeng.picker.engine.glide;
+package io.valuesfeng.picker.engine;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.os.Parcel;
-import android.util.Log;
 import android.widget.GridView;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
 import io.valuesfeng.picker.R;
-import io.valuesfeng.picker.engine.LoadEngine;
 
 /**
  * Author:    valuesfeng

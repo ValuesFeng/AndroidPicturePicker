@@ -86,7 +86,7 @@ public final class Picker {
      * @param mEnableCamera
      * @return
      */
-    public Picker setEnableCamera(boolean mEnableCamera) {
+    public Picker enableCamera(boolean mEnableCamera) {
         mSelectionSpec.setmEnableCamera(mEnableCamera);
         return this;
     }
@@ -104,11 +104,24 @@ public final class Picker {
         return this;
     }
 
+    /**
+     * Sets the limitation of a selectable count within the specified range.
+     *
+     * @param max maximum value to select.
+     * @return the specification builder context.
+     */
+    public Picker count(int max) {
+        mSelectionSpec.setMinSelectable(0);
+        mSelectionSpec.setMaxSelectable(max);
+        return this;
+    }
+
     public Picker singleChoice() {
         count(0, 1);
         return this;
     }
 
+    //TODO : Wait achieve
     /**
      * Sets the limitation of a selectable image quality by pixel count within the specified range.
      *

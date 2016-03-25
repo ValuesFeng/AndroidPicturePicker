@@ -32,7 +32,7 @@ import io.valuesfeng.picker.utils.BundleUtils;
 import io.valuesfeng.picker.utils.MediaStoreCompat;
 
 
-public class ImageSelectActivity extends FragmentActivity implements ConfirmationDialogFragment.ConfirmationSelectionListener,AlbumCollection.OnDirectorySelectListener {
+public class ImageSelectActivity extends FragmentActivity implements AlbumCollection.OnDirectorySelectListener {
 
     public static final String EXTRA_RESULT_SELECTION = BundleUtils.buildKey(ImageSelectActivity.class, "EXTRA_RESULT_SELECTION");
     public static final String EXTRA_SELECTION_SPEC = BundleUtils.buildKey(ImageSelectActivity.class, "EXTRA_SELECTION_SPEC");
@@ -219,25 +219,12 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
             setResult(Activity.RESULT_CANCELED);
             super.onBackPressed();
         }
-//        ConfirmationDialogFragment dialog = ConfirmationDialogFragment.newInstance(R.string.l_confirm_dialog_title, R.string.l_confirm_dialog_message);
-//        dialog.show(getSupportFragmentManager(), ConfirmationDialogFragment.TAG);
     }
     /**
      * 选择相机
      */
     public void showCameraAction() {
         mCapturePhotoUriHolder = mMediaStoreCompat.invokeCameraCapture(this, ImageSelectActivity.REQUEST_CODE_CAPTURE);
-    }
-
-    @Override
-    public void onPositive() {
-        setResult(Activity.RESULT_CANCELED);
-        finish();
-    }
-
-    @Override
-    public void onNegative() {
-
     }
 
     @Override
@@ -249,7 +236,6 @@ public class ImageSelectActivity extends FragmentActivity implements Confirmatio
 
     @Override
     public void onReset(Album album) {
-        Log.i("aaaaa","reset");
-//        mPhotoCollection.load(album);
+        mPhotoCollection.load(album);
     }
 }
