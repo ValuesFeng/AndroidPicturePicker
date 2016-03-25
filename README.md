@@ -29,11 +29,10 @@ You can use different Image Loader, Picker provide 3 default Loader Engine:
 2.PicassoEngine    
 3.ImageLoaderEngine    
 
-or you can use custom engine , just like:    
+or you can use custom engine , just like  
 
-    ```java
 
-    public static class CustomEngine implements LoadEngine {
+      public static class CustomEngine implements LoadEngine {
   
      @Override
        public void displayImage(String path, ImageView imageView) {
@@ -87,7 +86,7 @@ or you can use custom engine , just like:
             }
         }
     }
-    ```java
+
 
 
 Please note that LoadEngine is extends Parcelable.    
