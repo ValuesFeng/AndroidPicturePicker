@@ -103,6 +103,10 @@ Gradle
 	}  
 ```
 
+##wait achieve
+1. Iamge quality ([quality](https://github.com/ValuesFeng/AndroidPicturePicker/blob/master/gallery%2Fsrc%2Fmain%2Fjava%2Fio%2Fvaluesfeng%2Fpicker%2FPicker.java));    
+2. Select Type  ([MimeType](https://github.com/ValuesFeng/AndroidPicturePicker/blob/master/gallery%2Fsrc%2Fmain%2Fjava%2Fio%2Fvaluesfeng%2Fpicker%2FMimeType.java));
+
 ##License
 
 
