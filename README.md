@@ -31,7 +31,7 @@ You can use different Image Loader, Picker provide 3 default Loader Engine:
 
 or you can use custom engine , just like  
 
-
+```
       public static class CustomEngine implements LoadEngine {
   
      @Override
@@ -86,7 +86,7 @@ or you can use custom engine , just like
             }
         }
     }
-
+```
 
 
 Please note that LoadEngine is extends Parcelable.    
@@ -100,7 +100,7 @@ Gradle
   
   
   dependencies {
-		compile 'com.github.ValuesFeng:AndroidPicturePicker:1.0.0'
+		compile 'com.github.valuesfeng:androidpicturepicker:1.0.0'
 	}  
 ```
 
