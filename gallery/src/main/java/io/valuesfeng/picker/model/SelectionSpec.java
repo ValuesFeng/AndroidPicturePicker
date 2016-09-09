@@ -47,6 +47,7 @@ public final class SelectionSpec implements Parcelable {
     private long mMinPixels;       //最小size
     private long mMaxPixels;        //最大size
     private boolean mEnableCamera;//是否可用相机
+    private boolean mStartWithCamera;
     private LoadEngine engine;      //图片加载器 glide  imageloder picasso
     private Set<MimeType> mMimeTypeSet;
 
@@ -56,6 +57,7 @@ public final class SelectionSpec implements Parcelable {
         mMinPixels = 0L;
         mMaxPixels = Long.MAX_VALUE;
         mEnableCamera = false;
+        mStartWithCamera = false;
     }
 
     SelectionSpec(Parcel source) {
@@ -64,6 +66,7 @@ public final class SelectionSpec implements Parcelable {
         mMinPixels = source.readLong();
         mMaxPixels = source.readLong();
         mEnableCamera = ParcelUtils.readBoolean(source);
+        mStartWithCamera = ParcelUtils.readBoolean(source);
         this.engine = source.readParcelable(LoadEngine.class.getClassLoader());
         List<MimeType> list = new ArrayList<>();
         source.readList(list, MimeType.class.getClassLoader());
@@ -82,6 +85,7 @@ public final class SelectionSpec implements Parcelable {
         dest.writeLong(mMinPixels);
         dest.writeLong(mMaxPixels);
         ParcelUtils.writeBoolean(dest, mEnableCamera);
+        ParcelUtils.writeBoolean(dest, mStartWithCamera);
         dest.writeParcelable(this.engine, 0);
         dest.writeList(new ArrayList<>(mMimeTypeSet));
     }
@@ -90,9 +94,13 @@ public final class SelectionSpec implements Parcelable {
         return mEnableCamera;
     }
 
+    public boolean willStartCamera() { return mStartWithCamera; }
+
     public void setmEnableCamera(boolean mEnableCamera) {
         this.mEnableCamera = mEnableCamera;
     }
+
+    public void startWithCamera(boolean mStartWithCamera) { this.mStartWithCamera = mStartWithCamera; }
 
     public void setMaxSelectable(int maxSelectable) {
         mMaxSelectable = maxSelectable;
