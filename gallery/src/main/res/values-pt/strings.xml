@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">galeria</string>
+    <string name="action_settings">Configurações</string>
+    <string name="l_album_name_all">Todos</string>
+    <string name="l_album_name_camera">Camera</string>
+    <string name="l_album_name_download">Downloads</string>
+    <string name="l_album_name_screen_shot">Capturas de tela</string>
+    <string name="l_album_name_selected">Selecionadas</string>
+    <string name="l_confirm_dialog_message">Deseja desistir da seleção de imagens?</string>
+    <string name="l_confirm_dialog_title">Concluir</string>
+</resources>
