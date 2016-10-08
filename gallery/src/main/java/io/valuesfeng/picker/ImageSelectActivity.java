@@ -113,6 +113,8 @@ public class ImageSelectActivity extends FragmentActivity implements AlbumCollec
                 finish();
             }
         });
+
+        if (selectionSpec.willStartCamera()) showCameraAction();
     }
 
     public void setResult() {

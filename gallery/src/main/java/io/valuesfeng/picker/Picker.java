@@ -96,6 +96,17 @@ public final class Picker {
     }
 
     /**
+     * set if should start the camera by default
+     *
+     * @param mStartWithCamera
+     * @return
+     */
+    public Picker startCamera(boolean mStartWithCamera) {
+        mSelectionSpec.startWithCamera(mStartWithCamera);
+        return this;
+    }
+
+    /**
      * Sets the limitation of a selectable count within the specified range.
      *
      * @param min minimum value to select.
