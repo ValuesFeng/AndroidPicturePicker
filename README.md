@@ -8,8 +8,7 @@
 [Android-Universal-Image-Loader](https://github.com/nostra13/Android-Universal-Image-Loader):Powerful and flexible library for loading, caching and displaying images on Android.  
 
 ##Screen Shot
-![gallery](http://7sby47.com5.z0.glb.clouddn.com/screenshot1.jpg-xhdpi)
-![gallery](http://7sby47.com5.z0.glb.clouddn.com/screenshot2.jpg-xhdpi)
+![gallery](http://7sby47.com5.z0.glb.clouddn.com/screenshot1.jpg-xhdpi) ![gallery](http://7sby47.com5.z0.glb.clouddn.com/screenshot2.jpg-xhdpi)
 
 
 ## Usage    
