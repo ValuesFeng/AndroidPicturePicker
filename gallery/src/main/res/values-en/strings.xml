@@ -7,6 +7,8 @@
     <string name="l_album_name_download">Downloads</string>
     <string name="l_album_name_screen_shot">Screenshot</string>
     <string name="l_album_name_selected">Selected</string>
+    <string name="l_album_name_confirm">Confirm</string>
+    <string name="l_album_name_unselected_picture">Unselected</string>
     <string name="l_confirm_dialog_message">Do you want to give up this image selection?</string>
     <string name="l_confirm_dialog_title">Done</string>
 </resources>
