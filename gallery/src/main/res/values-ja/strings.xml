@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">gallery</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="l_album_name_all">最近の写真</string>
+    <string name="l_album_name_selected">画像を選択</string>
+    <string name="l_album_name_camera">カメラ</string>
+    <string name="l_album_name_download">ダウンロード</string>
+    <string name="l_album_name_screen_shot">スクリーンショット</string>
+    <string name="l_album_name_confirm">確定する</string>
+    <string name="l_album_name_unselected_picture">画像を選択していない</string>
+    <string name="l_confirm_dialog_title">ヒント</string>
+    <string name="l_confirm_dialog_message">あなたは今回選択した画像を放棄することを決定しますか？</string>
+</resources>
