@@ -71,7 +71,7 @@ public class ImageSelectActivity extends FragmentActivity implements AlbumCollec
         mCollection.setOnSelectionChange(new SelectedUriCollection.OnSelectionChange() {
             @Override
             public void onChange(int maxCount, int selectCount) {
-                commit.setText("确定("+selectCount+"/"+maxCount+")");
+                commit.setText(getString(R.string.l_album_name_confirm) + "(" + selectCount+"/"+maxCount+")");
             }
         });
 
@@ -85,11 +85,11 @@ public class ImageSelectActivity extends FragmentActivity implements AlbumCollec
         galleryTip = (ImageView) findViewById(R.id.gallery_tip);
         LinearLayout selectFold = (LinearLayout) findViewById(R.id.selectFold);
         commit = (Button) findViewById(R.id.commit);
-        commit.setText("确定(0/"+selectionSpec.getMaxSelectable()+")");
+        commit.setText(getString(R.string.l_album_name_confirm) + "(0/" + selectionSpec.getMaxSelectable()+")");
         if (selectionSpec.isSingleChoose()){
             commit.setVisibility(View.GONE);
         }
-        mFoldName.setText("最近图片");
+        mFoldName.setText(R.string.l_album_name_all);
         selectFold.setOnClickListener(mOnClickFoldName);
 
         albumCollection.onCreate(ImageSelectActivity.this,this,selectionSpec,mListView);
@@ -101,7 +101,7 @@ public class ImageSelectActivity extends FragmentActivity implements AlbumCollec
             @Override
             public void onClick(View v) {
                 if (mCollection.isEmpty()) {
-                    Toast.makeText(getApplicationContext(),"未选择图片",Toast.LENGTH_LONG).show();
+                    Toast.makeText(getApplicationContext(), getString(R.string.l_album_name_unselected_picture) ,Toast.LENGTH_LONG).show();
                 }else{
                     setResult();
                 }
@@ -159,7 +159,7 @@ public class ImageSelectActivity extends FragmentActivity implements AlbumCollec
                 mCollection.add(captured);
                 mMediaStoreCompat.cleanUp(mCapturePhotoUriHolder);
                 if(mCollection.isSingleChoose()){
-                   setResult();
+                    setResult();
                 }
             }
         }
